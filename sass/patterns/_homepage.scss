@@ -1,0 +1,115 @@
+@use '../abstracts/mixins' as *;
+
+main {
+    animation: bodyAnimation ease-in-out 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+ 
+@keyframes bodyAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+
+@keyframes move-up-block {
+	0% {
+		transform: translateY(-10rem);
+	}
+
+	100% {
+		transform: translateY(1rem);	
+	}
+}
+
+@property --k {
+	syntax: '<integer>';
+	initial-value: 0;
+	inherits: true
+}
+
+@keyframes text {
+	0% { --k: 0 }
+	100% { --k: var(--n) }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+  
+        .move-up-block {
+            animation: move-up-block ease-in-out both;
+            animation-timeline: view();
+            transform-origin: center; /* Ajusta el punto de origen según tus necesidades */
+        }
+
+        .scroll--reveal-text {
+            animation: text steps(var(--n, 100)) both;
+            animation-timeline: view();
+            animation-range: entry 100% cover 80%;
+        
+            span {
+                color: transparent;
+                background: 
+                /* highlight text */
+                linear-gradient(90deg, var(--wp--preset--color--foreground) 0 0) 
+                    0/ calc(var(--k)*1ch) no-repeat text
+                /* faded text */
+                var(--wp--preset--color--primary);
+            }
+        }
+    }
+}
+
+.safe-svg-cover {
+    display: flex;
+    
+    svg {
+        fill: none;
+    }
+
+    .safe-svg-inside {
+        display: inline-flex;
+    }
+
+    [data-marker],
+    .map-marker,
+    .marker-pin,
+    .pin {
+        transform-box: fill-box;
+        transform-origin: 50% 100%;
+    }
+
+}
+
+
+#margin-up {
+    transform: translateY(-5rem);
+}
+
+.bg-line-vertical:before {
+
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 120px;
+    height: 100%;
+    width: 1px;
+    border-right: 1px dashed var(--wp--preset--color--primary-30);
+    opacity: 1;
+}
+
+.wp-block-smn-animated-number {
+    font-family: var(--wp--preset--font-family--font-heading);
+    font-weight: 100;
+
+    &.since-animated-number {
+        .animated-number-prefix {
+            font-size: var(--wp--preset--font-size--caption);
+            transform: rotate(90deg) !important;
+            font-weight: 400;
+        }
+    }
+}

@@ -1,0 +1,25 @@
+.tag {
+    display: flex;
+    height: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    text-transform: capitalize;
+    padding: var(--spacing-025, 0.25rem) var(--spacing-05, 0.5rem);
+
+    color: var(--wp--preset--color--foreground-inverted);
+    font-size: var(--wp--preset--font-size--caption);
+
+    border-radius: var(--wp--custom--border-radius--rounded);
+    background-color: var(--wp--preset--color--primary-80);
+}
+
+.tag-category {
+    background-color: var(--wp--preset--color--neutral-white);
+    border-radius: var(--wp--custom--border-radius--05);
+    border: 1px solid var(--wp--preset--color--primary-10);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

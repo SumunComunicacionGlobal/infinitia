@@ -1,0 +1,79 @@
+/*!
+Theme Name: Infinitia
+Theme URI: https://sumun.net
+Author: Sumun
+Author URI: https://sumun.net
+Description: Infinitia Hybrid Theme
+Version: 1.0.0
+Tested up to: 8.2
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: infinitia
+Tags: hybrid, sass, 
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned.
+
+*/
+
+/*--------------------------------------------------------------
+# Normalize
+--------------------------------------------------------------*/
+@use "vendor/normalize";
+
+
+/*--------------------------------------------------------------
+# Abstracts
+--------------------------------------------------------------*/
+@use "abstracts/mixins";
+
+
+/*--------------------------------------------------------------
+# Base
+--------------------------------------------------------------*/
+@use "base/typography";
+@use "base/spacer";
+@use "base/layout";
+@use "base/fields";
+@use "base/forms";
+@use "base/utilities";
+
+/*--------------------------------------------------------------
+# Components
+--------------------------------------------------------------*/
+@use "components/buttons";
+@use "components/breadcrumbs";
+@use "components/cards";
+@use "components/carousel";
+@use "components/cover";
+@use "components/details";
+@use "components/faqs";
+@use "components/group";
+@use "components/lists";
+@use "components/map";
+@use "components/marquee";
+@use "components/media-text";
+@use "components/media";
+@use "components/nav";
+@use "components/pagination";
+@use "components/query";
+@use "components/quote";
+@use "components/search";
+@use "components/tag";
+@use "components/timeline";
+@use "components/toc";
+
+
+
+
+/*--------------------------------------------------------------
+# Patterns & Pages
+--------------------------------------------------------------*/
+@use "patterns/hero";
+@use "patterns/homepage";
+@use "patterns/single";
+@use "patterns/footer";
+@use "patterns/testimonials";
+@use "patterns/sectores";
+@use "patterns/proyectos";

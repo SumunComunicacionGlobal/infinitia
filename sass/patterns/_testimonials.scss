@@ -1,0 +1,18 @@
+@use '../abstracts/mixins' as *;
+
+#testimonials {
+
+    .card-testimonial {
+                max-width: 332px;
+            }
+    
+    @media ($below-tablet) {
+        .wp-block-columns {
+            flex-direction: column-reverse;
+
+
+            
+        }
+    }
+    
+}

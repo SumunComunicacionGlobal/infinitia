@@ -1,0 +1,125 @@
+@use '../abstracts/mixins' as *;
+
+#hero {
+    &.wp-block-cover {
+        //height: 60rem;
+        background-color: var(--wp--preset--color--primary-90);
+
+        .wp-block-cover__background {
+          background: linear-gradient(180deg, rgba(0, 45, 53, 0.00) 18.03%, #002D35 83.61%), var(--Primary-90, #003640);
+          opacity: 1 !important;
+        }
+
+        .has-background-dim:not([class*=-background-color]) {
+            background-color: transparent !important;
+        }
+
+        .wp-block-cover__inner-container {
+          padding-top: var(--wp--preset--spacing--80);
+          
+          @media ($below-tablet) {
+              padding-top: var(--wp--custom--layout--gap);
+          }
+        }
+
+        .home & {
+        
+            @media ($below-mobile) {
+                align-items: flex-end;
+                justify-content: center;
+            }
+        }
+
+        .page-template-page-soluciones & {
+
+          &.wp-block-cover {
+            //height: 60rem;
+            background-color: var(--wp--preset--color--primary-10);
+
+          .wp-block-cover__background {
+            background: linear-gradient(180deg, rgba(0, 45, 53, 0.00) 18.03%, #EEF9F7 83.61%), var(--Primary-90, #EEF9F7);
+            //opacity: 1 !important;
+          }
+
+        }
+      }
+    }
+
+    .logos-marquee {
+      figure img {
+        filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(13%) hue-rotate(180deg) brightness(103%) contrast(103%);
+      }
+    }
+
+
+    .section-caption {
+        text-transform: uppercase;
+    }
+
+    .blog &, .archive &, .search & {
+        height: 40rem;
+    } 
+
+}
+
+#hero {
+    h1.wp-block-post-title {
+        animation: textClip ease-in-out 1.3s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+
+    .wp-block-post-excerpt {
+        animation: textClip ease-in-out 1.4s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+
+    .section-caption {
+        animation: captionHero ease-in-out 1.5s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+        //animation-delay: 1.5s;
+    }
+}
+
+
+//copiado
+
+
+@keyframes textClip {
+  from {
+    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+    transform: translateY(50%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translateY(0);
+  }
+}
+
+@keyframes captionHero {
+  from {
+    transform: translateY(10%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes inner-left {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+// Replay animation!
+body:active * {
+  //animation: none !important;
+}
+

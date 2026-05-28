@@ -1,0 +1,111 @@
+@use '../abstracts/mixins' as *;
+
+details {
+    position: relative;
+    max-height: 3rem;
+    transition: .5s ease-in-out;
+    transition-behavior: allow-discrete;
+
+
+    summary {
+        display: block;
+        position: relative;
+        cursor: pointer;
+        width: 100%;
+        border-bottom: 1px solid var(--wp--preset--color--neutral-60);
+        padding-bottom: 0.5rem;
+
+        &:after {
+            content: url("./assets/icons/chevron-down.svg");
+            display: inline-block;
+            width: 1rem;
+            right: 0;
+            position: absolute;
+            height: 1rem;
+            transition: transform 200ms ease-out;
+        }
+    }
+
+    > p {
+            border-bottom: 1px solid var(--wp--preset--color--neutral-60);
+        }
+
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .wp-block-details--content {
+        //animation: scaleUp 2s ease-in-out forwards; 
+        border: 1px solid red;
+    }
+
+    &[open]   {
+        max-height: 100vh;
+        /* calc-size() function allows transition to height: auto; */
+        //block-size: calc-size(auto);
+
+        .wp-block-details--content {
+            animation: scaleUp 0.3s ease-in-out forwards; 
+        }
+    }
+}
+
+
+@keyframes scaleUp {
+    from {
+        display: none;
+        opacity: 0;
+    }
+    to {
+        display: block;
+        opacity: 1;
+    }
+}
+
+.starting-style {
+    animation: scaleUp 0.3s ease-in-out forwards;
+}
+
+
+details[open] {
+
+    summary {
+        border-bottom: none;
+        &::after {
+            rotate: 180deg;
+            transition: rotate 200ms ease-out;
+        }
+    }
+
+    
+}
+
+
+#manifiesto {
+    counter-reset: details-counter;
+   
+   .wp-block-details {
+        counter-increment: details-counter;
+        position: relative;
+        padding-left: 2.5rem;
+
+        &::before {
+            content: counter(details-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background-color: var(--wp--preset--color--secondary);
+            color: var(--wp--preset--color--foreground-inverted);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+       
+    }
+}

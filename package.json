@@ -1,0 +1,36 @@
+{
+  "name": "zoilo",
+  "version": "1.0.0",
+  "description": "Theme WP Zoilo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SumunComunicacionGlobal/infinitia.git"
+  },
+  "keywords": [
+    "sass",
+    "wordpress",
+    "woocommerce"
+  ],
+  "author": "Alvaro Rubioc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SumunComunicacionGlobal/infinitia/issues"
+  },
+  "homepage": "https://github.com/SumunComunicacionGlobal/infinitia#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "^31.1.0",
+    "@wordpress/stylelint-config": "^23.1.0",
+    "dir-archiver": "^2.1.0",
+    "sass": "^1.79.4",
+    "stylelint": "^16.9.0",
+    "uglify-js": "^3.19.0"
+  },
+  "scripts": {
+    "watch": "sass --watch sass:./ --style compressed",
+    "compile:css": "sass sass:./ && stylelint '*.css' --fix || true && stylelint '*.css' --fix",
+    "compile:js": "uglifyjs assets/js/*.js > assets/js/infinitia.min.js",
+    "bundle": "dir-archiver --src . --dest ../infinitia.zip --exclude .DS_Store .stylelintrc.json .eslintrc .git .gitattributes .github .gitignore README.md composer.json composer.lock node_modules vendor package-lock.json package.json .travis.yml phpcs.xml.dist sass style.css.map yarn.lock",
+    "sync": "browser-sync start --proxy 'https://infinitia-old.local/' --files ['**/*.php', '*.*']",
+    "dev": "npm run watch & npm run sync"
+  }
+}

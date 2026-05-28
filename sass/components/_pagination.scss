@@ -1,0 +1,83 @@
+.wp-block-query-pagination {
+
+    margin-block-start: var(--wp--preset--spacing--70);
+    
+    .wp-block-query-pagination-numbers {
+        display: flex;
+        gap: 0.25rem;
+        padding: 0.25rem;
+        align-items: center;
+
+        border-radius: var(--wp--custom--border-radius--rounded);
+        background:var(--wp--preset--color--neutral-30);
+
+        .page-numbers {
+            background-color: var(--wp--preset--color--terciary);
+            text-decoration: none;
+            border-radius: var(--wp--custom--border-radius--rounded);
+            width: var(--wp--preset--spacing--40);
+            height: var(--wp--preset--spacing--40);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &.current {
+                background-color: var(--wp--preset--color--neutral-white);
+
+                &:hover {
+                    background-color: var(--wp--preset--color--neutral-white);
+                }
+            }
+
+            &:hover {
+                background-color: var(--wp--preset--color--neutral-white);
+            }
+        }
+    }
+
+    .wp-block-query-pagination-next, .wp-block-query-pagination-previous {
+        background-color: var(--wp--preset--color--primary);
+        text-decoration: none;
+        border-radius: var(--wp--custom--border-radius--rounded);
+        width: 3rem;
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            background-color: var(--wp--preset--color--secondary);
+        }
+
+        .wp-block-query-pagination-next-arrow, .wp-block-query-pagination-previous-arrow {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-left: 0;
+            font-size: 0; // Oculta el texto Unicode
+            
+            &::before {
+                width: 1.5rem;
+                height: 1.5rem;
+                display: block;
+                content: '';
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        }
+        
+        .wp-block-query-pagination-previous-arrow {
+            &::before {
+                background-image: url('./assets/icons/arrow-left.svg');
+                filter: invert(100);
+            }
+        }
+        
+        .wp-block-query-pagination-next-arrow {
+            &::before {
+                background-image: url('./assets/icons/arrow-right.svg');
+                filter: invert(100);
+            }
+        }
+    }
+}

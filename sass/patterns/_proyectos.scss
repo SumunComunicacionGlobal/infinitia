@@ -1,0 +1,16 @@
+@use '../abstracts/mixins' as *;
+
+
+.smn-casosdeexito-taxo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: var(--wp--custom--layout--gap);
+    justify-content: center;
+
+    @media ($below-mobile) {
+        flex-direction: column;
+    }
+
+}
+  

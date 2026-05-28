@@ -1,0 +1,87 @@
+@use '../abstracts/mixins' as *;
+
+a.stretched-link, .stretched-link > a {
+    position: initial !important;
+
+    &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        pointer-events: auto;
+        content: "";
+        background-color: rgba(0,0,0,0);
+    } 
+}
+
+.column-reverse-mobile {
+    @media ($below-tablet) {
+        flex-direction: column-reverse;
+        display: flex;
+    }
+}
+
+.column-direction-column-mobile {
+    @media ($below-tablet) {
+        flex-direction: column;
+        display: flex;
+    }
+}
+
+.mt-0 {
+    margin-block-start: 0;
+}
+
+.mt-1 {
+    margin-block-start: var(--wp--preset--spacing--10);
+    margin-top: var(--wp--preset--spacing--10);
+}
+
+.mt-2 {
+    margin-block-start: var(--wp--preset--spacing--20);
+    margin-top: var(--wp--preset--spacing--20);
+}
+
+.mt-3 {
+    margin-block-start: var(--wp--preset--spacing--30);
+    margin-top: var(--wp--preset--spacing--30);
+}
+
+.mb-1 {
+    margin-block-end: var(--wp--preset--spacing--10);
+}
+
+.mb-2 {
+    margin-block-end: var(--wp--preset--spacing--20);
+}
+
+.mb-3 {
+    margin-block-end: var(--wp--preset--spacing--30);
+}
+
+.mb-4 {
+    margin-block-end: var(--wp--preset--spacing--40);
+}
+
+.d-z-index-2 {
+    z-index: 2;
+    position: relative;
+}
+
+.d-z-index-99 {
+    z-index: 99 !important;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.p-relative {
+    position: relative;
+}

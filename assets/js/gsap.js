@@ -1,0 +1,143 @@
+document.addEventListener('DOMContentLoaded', function () {
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.utils.toArray('.site-main .wp-block-cover__inner-container > * > *, .site-main .is-layout-flow > * > *, .wp-block-separator, .single .entry-content > .wp-block-image').forEach(function (element) {
+    gsap.from(element, {
+      scrollTrigger: {
+        trigger: element,
+        start: 'top 80%',
+        end: 'bottom 20%',
+        toggleActions: 'play none none none',
+      },
+      opacity: 0,
+      y: 50,
+      duration: 0.3,
+    });
+  });
+
+  const textMultipleElements = document.querySelectorAll('.text-color-animate');
+
+  if (textMultipleElements.length > 0) {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: textMultipleElements[0],
+        start: 'top 20%',
+        end: 'bottom 20%',
+        scrub: true,
+      }
+    });
+
+    textMultipleElements.forEach(function (textElement) {
+      let combinedText = '';
+
+      textElement.childNodes.forEach(function (child) {
+        if (child.nodeType === Node.TEXT_NODE || child.nodeType === Node.ELEMENT_NODE) {
+          combinedText += child.textContent.trim();
+        }
+      });
+
+      const splitText = combinedText.split('').map(function (char) {
+        return '<span>' + char + '</span>';
+      }).join('');
+
+      textElement.innerHTML = splitText;
+
+      const chars = textElement.querySelectorAll('span');
+
+      tl.from(chars, {
+        color: '#088988',
+        stagger: 1,
+        duration: 1,
+      }, '+=0.5');
+    });
+  }
+
+  const triggerSection = document.querySelector('#kpis-section');
+  const elements = document.querySelectorAll('.animated-number');
+
+  if (triggerSection && elements.length > 0) {
+    gsap.from(elements, {
+      textContent: 0,
+      duration: 2,
+      snap: { textContent: 1 },
+      scrollTrigger: {
+        trigger: triggerSection,
+        start: 'top center',
+      },
+    });
+  }
+
+  // Stagger para marcadores de mapa SVG en bloques del editor.
+  gsap.utils.toArray('.safe-svg-cover').forEach(function (container) {
+    const markers = container.querySelectorAll('[data-marker], .map-marker, .marker-pin, .pin, g[id*="marker" i], path[id*="marker" i], circle[id*="marker" i]');
+
+    if (!markers.length) {
+      return;
+    }
+
+    // Orden visual: de arriba a abajo.
+    const markersSorted = Array.from(markers).sort(function (a, b) {
+      const aRect = a.getBoundingClientRect();
+      const bRect = b.getBoundingClientRect();
+      return aRect.top - bRect.top;
+    });
+
+    gsap.set(markersSorted, {
+      transformOrigin: '50% 100%',
+      transformBox: 'fill-box',
+      opacity: 0,
+      x: 0,
+      y: -14,
+      scale: 0.35,
+    });
+
+    gsap.to(markersSorted, {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      scale: 1,
+      duration: 0.55,
+      ease: 'back.out(2)',
+      stagger: {
+        each: 0.09,
+        from: 'start',
+      },
+      scrollTrigger: {
+        trigger: container,
+        start: 'top 45%',
+        end: 'bottom 55%',
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    });
+  });
+
+  // Efecto parallax + scale suave para fondo de covers.
+  gsap.utils.toArray('.bg-scroll-animated .wp-block-cover').forEach(function (cover) {
+    const bgImage = cover.querySelector('.wp-block-cover__image-background');
+
+    if (!bgImage) {
+      return;
+    }
+
+    gsap.set(bgImage, {
+      scale: 1,
+      yPercent: -4,
+      transformOrigin: '50% 50%',
+      willChange: 'transform',
+    });
+
+    gsap.to(bgImage, {
+      scale: 1.20,
+      yPercent: 7,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: cover,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.2,
+        invalidateOnRefresh: true,
+      },
+    });
+  });
+});

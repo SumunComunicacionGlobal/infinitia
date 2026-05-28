@@ -1,0 +1,7 @@
+.wp-block-cover {
+    &.is-style-cover-contain-background { 
+        .wp-block-cover__image-background {
+            object-fit: contain;
+        }
+    }
+}

@@ -1,0 +1,78 @@
+@use '../abstracts/mixins' as *;
+
+.wp-block-cb-carousel {
+    margin-bottom: var(--wp--custom--layout--gap);
+
+    &.text-slider {
+        margin-bottom: 0;
+        p {
+            margin: 0;
+        }
+    }
+
+    .slick-next, .slick-prev {
+        top: calc(100% + 1rem);
+        color: var(--wp--preset--color--neutral-white);
+        background-color: var(--wp--preset--color--primary-80) !important;
+        width: 3.5rem;
+        height: 3.5rem;
+        z-index: 2;
+        border-radius: var(--wp--custom--border-radius--rounded);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &::before {
+            content: '';
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            border: 0;
+            justify-content: center;
+            background-color: currentColor; /* Esto asegura que el color del SVG coincida con el color del texto */
+            mask-image: url(./assets/icons/icon-arrow-btn.svg);
+            mask-size: cover;
+            mask-repeat: no-repeat;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        &:hover {
+            color: var(--wp--preset--color--neutral-white);
+        }
+    }
+
+    .slick-next {
+        left: calc(144px + 6.5rem) !important; 
+
+        @media ($below-mobile-xs) {
+            right: 0;
+        } 
+    }
+    .slick-prev {
+
+        left: calc(144px + 2rem) !important; 
+
+         @media ($below-mobile) {
+            left: 0;
+        }
+    }
+
+    .slick-prev::before {
+        rotate: 180deg;
+    }
+
+    .slick-dots li button:before {
+        color: var(--wp--preset--color--neutral-white);
+        font-size: 1rem;
+        
+    }
+
+    .slick-dots li.slick-active button:before {
+        color: var(--wp--preset--color--neutral-white);
+    }
+}
+
+.wp-block-cb-carousel .slick-next:before, .wp-block-cb-carousel .slick-prev:before {
+    color: var(--wp--preset--color--neutral-white);
+}

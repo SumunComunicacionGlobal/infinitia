@@ -1,0 +1,66 @@
+@use '../abstracts/mixins' as *;
+
+// Estilos para el mapa de estaciones de servicio
+.estacion-map-container {
+    margin-top: 1rem;
+}
+
+.acf-map {
+    width: 100%;
+    height: 400px;
+    border: 1px solid var(--wp--preset--color--neutral-30);
+    border-radius: var(--wp--custom--border-radius--1-5);
+    position: relative;
+
+    img {
+        max-width: inherit !important;
+    }
+
+    .marker {
+        position: absolute;
+        background: var(--wp--preset--color--neutral-white);
+        border-radius: var(--wp--custom--border-radius--05);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 8px;
+        max-width: 200px;
+        min-width: 100px;
+
+        h4 {
+            margin: 0 0 4px 0;
+            font-size: 14px;
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--wp--preset--color--foreground-medium);
+            line-height: 1.2;
+        }
+    }
+}
+
+.estacion-address {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: var(--wp--preset--color--neutral-10);
+    border-radius: var(--wp--custom--border-radius--1);
+    border-left: 4px solid var(--wp--preset--color--primary);
+
+    p {
+        margin: 0;
+        color: var(--wp--preset--color--foreground-medium);
+    }
+}
+
+// Responsive para móviles
+@media (max-width: 781px) {
+    .acf-map {
+        height: 300px;
+    }
+
+    .estacion-address {
+        padding: 0.75rem;
+    }
+}

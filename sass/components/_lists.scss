@@ -1,0 +1,104 @@
+ol.has-background, ul.has-background {
+    padding: 0;
+}
+
+ul.is-style-separator-list,
+ul.is-style-arrow-separator-list,
+ul.is-style-arrow-mini-separator-list,
+ul.is-style-check-separator-list,
+ul.destacado { /* Clase CSS que viene heredada del blog de Drupal */
+	
+    padding: 0;
+    list-style: none;
+
+    li {
+        border-bottom: 1px solid var(--wp--preset--color--neutral-30);
+		padding: var(--wp--preset--spacing--10) 0;
+
+        a {
+            text-decoration: none;
+            width: 100%;
+            transition: padding-left .2s ease-in;
+
+            &:hover {
+                cursor: pointer;
+                padding-left: var(--wp--preset--spacing--10);
+            }
+        }
+    }
+}
+
+
+ul.is-style-arrow-list,
+ul.is-style-check-list,
+ul.is-style-arrow-separator-list,
+ul.is-style-arrow-mini-separator-list,
+ul.is-style-check-separator-list,
+ul.destacado {
+	list-style: none;
+	position: relative;
+	padding: 0;
+
+	li {
+		position: relative; 
+		padding: 0 0 var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+
+		img {
+			margin: 0 var(--wp--preset--spacing--10);
+		}
+	}
+
+	li:before{
+		content: url("assets/icons/arrow-list.svg");
+		position: absolute;
+		top: 3px;
+		left: 0;
+	}
+
+	a {
+		transition: padding-left 0.3s ease;
+        text-decoration: none;
+		&:hover {
+			padding-left: var(--wp--preset--spacing--10);
+			transition: padding-left 0.3s ease;
+		}
+	}
+}
+
+ul.is-style-arrow-separator-list,
+ul.destacado {
+    li {
+        padding: var(--wp--preset--spacing--10) 0 var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+        &::before {
+            top: calc(var(--wp--preset--spacing--10) + 3px);
+        }
+    }
+}
+
+ul.is-style-arrow-mini-separator-list,
+ul.destacado {
+
+	li:not(:first-child) {
+		padding: var(--wp--preset--spacing--10) 0 var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+	}
+
+	li:before{
+		content: url("assets/icons/arrow-list.svg");
+		top: auto;
+		left: 0;
+	}
+}
+
+ul.is-style-check-separator-list,
+ul.is-style-check-list {
+
+	li {
+		padding: 0 0 var(--wp--preset--spacing--10) var(--wp--preset--spacing--30);
+	}
+
+	li:before{
+		content: url("assets/icons/check.svg");
+		top: auto;
+		left: 0;
+	}
+}

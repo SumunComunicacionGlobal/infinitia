@@ -1,0 +1,23 @@
+@use '../abstracts/mixins' as *;
+
+.wpcf7-acceptance .wpcf7-list-item {
+	margin: 0;
+}
+
+.wpcf7-form.init {
+	.section-caption p {
+		text-transform: uppercase;
+		display: flex;
+		align-items: center;
+		gap: .5rem;
+		font-size: var(--wp--preset--font-size--caption);
+		font-weight: bold;
+
+		&:before {
+			content: url(./assets/icons/caption-title-icon.svg);
+			display: block;
+			width: 1rem;
+			height: 1rem;
+		}
+	}
+}

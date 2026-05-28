@@ -1,0 +1,180 @@
+@use '../abstracts/mixins' as *;
+
+.wp-block-buttons .wp-block-button:not([class*="-with-"]) .wp-block-button__link {
+	transition: transform 0.3s ease;
+	
+	&:hover {
+		transform: scale(1.1);
+	}
+
+	&:has(img) {
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 0.5rem;
+	}
+}
+
+.wp-block-button.is-style-with-arrow .wp-block-button__link,
+.wp-block-button.is-style-with-chat .wp-block-button__link,
+.wp-block-button.is-style-outline-with-arrow .wp-block-button__link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	transition: 0.3s ease;
+	position: relative;
+
+	&:hover::after {
+		transform: translateY(-1rem);
+		opacity: 0;
+
+	}
+
+	&:hover::before {
+		transform: translate3d(0%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+		opacity: 1;
+
+	}
+
+	&:after, &:before {
+		content: '';
+		display: inline-block;
+		width: 24px;
+		height: 24px;
+		background-color: currentColor; /* Esto asegura que el color del SVG coincida con el color del texto */
+		mask-image: url(./assets/icons/icon-arrow-btn-2.svg);
+		mask-size: cover;
+		mask-repeat: no-repeat;
+		transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+		background-position: center top;
+		overflow: hidden;
+		opacity: 1;
+	}
+
+	&::before {
+		position: absolute;
+		right: 2rem;
+		transform: translate3d(0%, 1rem, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+		transform-style: preserve-3d;
+		opacity: 0;
+	}
+
+	// Rota la flecha 45 grados cuando el enlace apunta a un ancla
+	&[href^="#"]:after {
+		transform: rotate(90deg);
+	}
+
+	&[href^="#"]:hover:after {
+		transform: rotate(90deg) translateY(-0.5rem);
+	}
+
+}
+
+.wp-block-button.is-style-with-arrow,
+.wp-block-button.is-style-outline-with-arrow {
+
+	:not(#masthead) & {
+		@media ($below-mobile) {
+				width: 100%;
+				flex-basis: 100%;
+			}
+		}
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link {
+	padding: calc(1rem - 2px) 1.5rem;
+}
+
+.wp-block-button.is-style-outline-with-arrow .wp-block-button__link {
+	background-color: transparent;
+	border-color: currentColor;
+    border-width: 2px;
+    border-style: solid;
+    color: currentColor;
+	padding: calc(1rem - 2px) 1.5rem;
+
+	&::before {
+		right: calc(2rem - 8px);
+	}
+}
+
+.wp-block-button.is-style-with-chat .wp-block-button__link {
+
+	&:after, &:before {
+		mask-image: url(./assets/icons/chat.svg);
+	}
+
+	&::before {
+		position: relative;
+		left: 0rem;
+	}
+
+	&::after {
+		position: absolute;
+		left: 2rem;
+	}
+
+}
+
+.wp-block-button.is-style-outline.btn-prev-slide,
+.wp-block-button.is-style-outline.btn-next-slide {
+
+	a.wp-block-button__link {
+		padding: 0 !important;
+		width: 56px;
+		height: 56px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-width: 1px;
+	}
+    
+
+	&.disabled a.wp-block-button__link{
+		pointer-events: none;
+		opacity: 0.5;
+		filter: invert(0.5);
+	}
+
+}
+
+.btn-icon {
+	display: flex;
+	width: 3rem;
+	height: 3rem;
+	padding: var(--spacing-05, 0.5rem);
+	justify-content: center;
+	align-items: center;
+	gap: 0.25rem;
+	aspect-ratio: 1/1;
+	border-radius: var(--wp--custom--border-radius--rounded);
+	border: 0;
+	background: var(--wp--preset--color--neutral-white);
+	transition: background-color 0.3s ease;
+
+	a {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		svg {
+			width: 2rem;
+			height: 2rem;
+			stroke: var(--wp--preset--color--foreground-medium);
+
+			path {
+				stroke: var(--wp--preset--color--foreground-medium);
+			}
+		}
+	}
+
+	&:hover {
+		background-color: var(--wp--preset--color--neutral-30);
+		cursor: pointer;
+	}
+}
+
+.wp-block-buttons.is-layout-flex.hero-dynamic-buttons {
+	gap: var(--wp--custom--layout--gap-small);
+}
