@@ -1,3 +1,5 @@
+@use '../abstracts/mixins' as *;
+
 input[type="text"],
 input[type="email"],
 input[type="url"],
@@ -43,12 +45,15 @@ select {
 	border-radius: var(--wp--custom--border-radius--05);
 	border: 1px solid var(--wp--preset--color--neutral-30);
 	padding: 7px var(--wp--preset--spacing--10);
+
+	@media ($below-tablet) {
+		width: 100%;
+	}
 }
 
 textarea {
 	border-radius: var(--wp--custom--border-radius--05);
 	width: 100%;
-	border: 1px solid var(--wp--preset--color--neutral-30);
 	height: 100% !important;
 }
 
