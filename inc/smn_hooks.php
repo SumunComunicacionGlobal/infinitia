@@ -62,7 +62,11 @@ function cmplz_show_banner_on_click() {
 add_action( 'wp_footer', 'cmplz_show_banner_on_click' );
 
 /**
- * Quita enlaces del bloque core/post-terms y deja solo texto.
+ * Obtiene el término de nivel superior para un post dado y taxonomía.
+ *
+ * @param int $post_id ID del post.
+ * @param string $taxonomy Taxonomía.
+ * @return WP_Term|null
  */
 function smn_get_top_level_term_for_post($post_id, $taxonomy) {
     $terms = get_the_terms($post_id, $taxonomy);
@@ -89,32 +93,138 @@ function smn_get_top_level_term_for_post($post_id, $taxonomy) {
     return null;
 }
 
+/**
+ * Obtiene el post_id desde el contexto del bloque o del loop actual.
+ *
+ * @param array $block Datos del bloque.
+ * @return int
+ */
+function smn_get_post_id_from_block_context($block) {
+    $post_id = 0;
+
+    if (isset($block['context']['postId'])) {
+        $post_id = (int) $block['context']['postId'];
+    }
+
+    if (!$post_id) {
+        $post_id = (int) get_the_ID();
+    }
+
+    return $post_id;
+}
+
+/**
+ * Renderiza el icono de sector desde ACF para un termino.
+ *
+ * @param WP_Term $term Termino de taxonomia.
+ * @return string
+ */
+function smn_get_sector_icon_html($term) {
+    if (!function_exists('get_field') || empty($term) || !($term instanceof WP_Term)) {
+        return '';
+    }
+
+    $icon_field = get_field('icon-sector', $term);
+    if (empty($icon_field)) {
+        $icon_field = get_field('icon-sector', $term->taxonomy . '_' . $term->term_id);
+    }
+
+    if (empty($icon_field)) {
+        return '';
+    }
+
+    if (is_array($icon_field)) {
+        if (!empty($icon_field['ID'])) {
+            return wp_get_attachment_image((int) $icon_field['ID'], 'thumbnail', false, array('class' => 'smn-post-term-icon-image'));
+        }
+
+        if (!empty($icon_field['id'])) {
+            return wp_get_attachment_image((int) $icon_field['id'], 'thumbnail', false, array('class' => 'smn-post-term-icon-image'));
+        }
+
+        if (!empty($icon_field['url'])) {
+            return '<img class="smn-post-term-icon-image" src="' . esc_url($icon_field['url']) . '" alt="" loading="lazy" decoding="async" />';
+        }
+    }
+
+    if (is_numeric($icon_field)) {
+        return wp_get_attachment_image((int) $icon_field, 'thumbnail', false, array('class' => 'smn-post-term-icon-image'));
+    }
+
+    if (is_string($icon_field)) {
+        return '<img class="smn-post-term-icon-image" src="' . esc_url($icon_field) . '" alt="" loading="lazy" decoding="async" />';
+    }
+
+    return '';
+}
+
+/**
+ * Mantiene el contenedor original del bloque core/post-terms y reemplaza su contenido interno.
+ *
+ * @param string $block_content HTML original del bloque.
+ * @param string $inner_html    HTML interno nuevo.
+ * @return string
+ */
+function smn_replace_post_terms_inner_html($block_content, $inner_html) {
+    $trimmed = trim((string) $block_content);
+
+    if (preg_match('/^<([a-z0-9]+)\b([^>]*)>.*<\/\1>$/is', $trimmed, $matches)) {
+        return '<' . $matches[1] . $matches[2] . '>' . $inner_html . '</' . $matches[1] . '>';
+    }
+
+    return $inner_html;
+}
+
+/**
+ * Quita enlaces del bloque core/post-terms y deja solo texto.
+ */
+
 function smn_remove_post_terms_links($block_content, $block) {
     if (empty($block_content)) {
         return $block_content;
     }
 
     $taxonomy = isset($block['attrs']['term']) ? $block['attrs']['term'] : '';
+    $post_id = smn_get_post_id_from_block_context($block);
+
     if ('casos-de-exito-category' === $taxonomy) {
-        $post_id = 0;
-
-        if (isset($block['context']['postId'])) {
-            $post_id = (int) $block['context']['postId'];
-        }
-
-        if (!$post_id) {
-            $post_id = get_the_ID();
-        }
-
         if ($post_id) {
             $top_level_term = smn_get_top_level_term_for_post($post_id, $taxonomy);
 
             if (!empty($top_level_term) && !is_wp_error($top_level_term)) {
-                $term_name_class = 'smn-post-term-name--name-' . sanitize_html_class(sanitize_title($top_level_term->name));
+                $term_name_class = 'smn-post-term-name--' . sanitize_html_class(sanitize_title($top_level_term->name));
+                $inner_html = '<span class="' . esc_attr($term_name_class) . '">' . esc_html($top_level_term->name) . '</span>';
 
-                return '<span class="smn-post-term-name smn-post-term-name--parent ' . esc_attr($term_name_class) . '">' . esc_html($top_level_term->name) . '</span>';
+                return smn_replace_post_terms_inner_html($block_content, $inner_html);
             }
         }
+
+        return smn_replace_post_terms_inner_html($block_content, '');
+    }
+
+    if ('sector' === $taxonomy && $post_id) {
+        $terms = get_the_terms($post_id, $taxonomy);
+
+        if (empty($terms) || is_wp_error($terms)) {
+            return '';
+        }
+
+        $items = array();
+        foreach ($terms as $term) {
+            $term_name_class = 'smn-post-term-name--' . sanitize_html_class(sanitize_title($term->name));
+            $icon_html = smn_get_sector_icon_html($term);
+            $item_html = '<span class="smn-post-term-name ' . esc_attr($term_name_class) . '">';
+
+            if ('' !== $icon_html) {
+                $item_html .= '<span class="smn-post-term-icon" aria-hidden="true">' . $icon_html . '</span>';
+            }
+
+            $item_html .= '<span class="smn-post-term-label">' . esc_html($term->name) . '</span>';
+            $item_html .= '</span>';
+            $items[] = $item_html;
+        }
+
+        return smn_replace_post_terms_inner_html($block_content, implode('', $items));
     }
 
     // Convierte cada enlace de término en un span para mantener estructura/estilo.
@@ -292,5 +402,41 @@ function smn_render_parent_title_fallback($block_content, $block) {
     );
 }
 add_filter('render_block', 'smn_render_parent_title_fallback', 10, 2);
+
+/**
+ * Evita que el extracto automático (primer texto del contenido)
+ * se muestre en páginas/singles cuando no hay excerpt manual.
+ *
+ * @param string          $excerpt Extracto calculado por WordPress.
+ * @param WP_Post|int|null $post   Objeto o ID de post.
+ *
+ * @return string
+ */
+function smn_disable_fallback_excerpt_on_singular($excerpt, $post) {
+    if (is_admin() || wp_doing_ajax() || (defined('REST_REQUEST') && REST_REQUEST)) {
+        return $excerpt;
+    }
+
+    if (!is_singular()) {
+        return $excerpt;
+    }
+
+    $post_object = get_post($post);
+    if (!$post_object instanceof WP_Post) {
+        return $excerpt;
+    }
+
+    $queried_post_id = (int) get_queried_object_id();
+    if (!$queried_post_id || (int) $post_object->ID !== $queried_post_id) {
+        return $excerpt;
+    }
+
+    if (has_excerpt($post_object)) {
+        return $excerpt;
+    }
+
+    return '';
+}
+add_filter('get_the_excerpt', 'smn_disable_fallback_excerpt_on_singular', 10, 2);
 
 

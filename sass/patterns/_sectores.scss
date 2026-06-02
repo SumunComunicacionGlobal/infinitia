@@ -32,6 +32,7 @@
 	line-height: 1;
 	text-decoration: none;
 	transition: background-color 0.25s ease, transform 0.25s ease;
+	border: 0;
 }
 
 .smn-sectores-list__link:hover,
@@ -96,5 +97,39 @@
 
 	.smn-clientes-logos {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.taxonomy-sector.wp-block-post-terms {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+
+	@media ($below-tablet) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	
+	span.smn-post-term-name {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		gap: var(--wp--preset--spacing--10);
+		padding: var(--wp--preset--spacing--30) var(--wp--preset--spacing--10);
+		border-radius: var(--wp--custom--border-radius--05);
+		background-color: var(--wp--preset--color--primary-40);
+		color: var(--wp--preset--color--primary-100);
+		font-size: var(--wp--preset--font-size--big);
+		text-align: center;
+		line-height: 1;
+		text-decoration: none;
+
+		.smn-post-term-icon {
+			img.smn-post-term-icon-image {
+				width: 2rem;
+				height: 2rem;
+				object-fit: contain;
+			}
+		}
 	}
 }

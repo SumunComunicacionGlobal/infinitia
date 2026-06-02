@@ -6,7 +6,7 @@
     counter-reset: faq-counter;
 
     .rank-math-list-item {
-        border-bottom: 1px solid var(--wp--preset--color--neutral-30);
+        border-bottom: 1px dashed var(--wp--preset--color--primary-30);
         display: flex;
         align-items: flex-start;
         flex-direction: column;
@@ -33,7 +33,7 @@
                 top: 0;
                 width: 24px;
                 height: 24px;
-                background-color: var(--wp--preset--color--secondary);
+                background-color: var(--wp--preset--color--primary);
                 color: var(--wp--preset--color--foreground-inverted);
                 border-radius: 50%;
                 display: flex;
@@ -49,7 +49,7 @@
             }
             
             &::after {
-                content: url(./assets/icons/arrow-faqs.svg);
+                content: url(./assets/icons/plus.svg);
                 right: -3rem;
                 top: 0;
                 margin-left: 1rem;
@@ -79,11 +79,11 @@
             }
     
             .rank-math-question::after {
-                transform: rotate(-90deg);
+                transform: rotate(-180deg);
+                content: url(./assets/icons/minus.svg);
             }
 
             h3.rank-math-question, h2.rank-math-question  {
-                font-size: var(--wp--preset--font-size--body) !important;
                 transition: font-size .4s ease-in-out;
             }
         }

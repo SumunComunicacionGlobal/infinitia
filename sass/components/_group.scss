@@ -30,7 +30,7 @@
 
     & > .wp-block-group, & > .wc-block-product, & > .wp-block-gallery, & > [class*="wp-block-"] {
         flex: 0 0 auto !important;
-        width: 314px !important;
+        width: 448px !important;
         margin-block-start: 0;
         scroll-snap-align: center;
         scroll-snap-stop: always;
@@ -217,14 +217,7 @@
 
 
 .cta-btn-img--rigth {
-    .wp-block-buttons {
-        z-index: 1;
-    }
-}
-
-.cta-btn-img--left {
-    .wp-block-buttons {
-        z-index: 1;
-        margin-left: -4rem;
+    .wp-block-image {
+        position: relative;
     }
 }

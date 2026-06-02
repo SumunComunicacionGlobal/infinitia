@@ -5,25 +5,26 @@ ol.has-background, ul.has-background {
 ul.is-style-separator-list,
 ul.is-style-arrow-separator-list,
 ul.is-style-arrow-mini-separator-list,
-ul.is-style-check-separator-list,
-ul.destacado { /* Clase CSS que viene heredada del blog de Drupal */
+ul.is-style-check-separator-list { 
 	
     padding: 0;
     list-style: none;
 
     li {
-        border-bottom: 1px solid var(--wp--preset--color--neutral-30);
+        border-bottom: 1px dashed var(--wp--preset--color--primary-30);
 		padding: var(--wp--preset--spacing--10) 0;
+
+		&:has(a) {
+			&:hover:before {
+                cursor: pointer;
+                left: 0.33rem;
+            }
+		}
 
         a {
             text-decoration: none;
             width: 100%;
             transition: padding-left .2s ease-in;
-
-            &:hover {
-                cursor: pointer;
-                padding-left: var(--wp--preset--spacing--10);
-            }
         }
     }
 }
@@ -41,7 +42,7 @@ ul.destacado {
 
 	li {
 		position: relative; 
-		padding: 0 0 var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+		padding: 0 0 var(--wp--preset--spacing--10) var(--wp--preset--spacing--30);
 
 		img {
 			margin: 0 var(--wp--preset--spacing--10);
@@ -49,45 +50,41 @@ ul.destacado {
 	}
 
 	li:before{
-		content: url("assets/icons/arrow-list.svg");
+		
 		position: absolute;
-		top: 3px;
+		top: 0;
 		left: 0;
+		content: '';
+		display: inline-block;
+		width: 24px;
+		height: 24px;
+		background-color: var(--wp--preset--color--accent-10);
+		mask-image: url("assets/icons/arrow-list.svg");
+		mask-size: cover;
+		mask-repeat: no-repeat;
+		transition: left 0.3s ease-in-out;
+		background-position: center top;
+		
 	}
 
 	a {
 		transition: padding-left 0.3s ease;
         text-decoration: none;
-		&:hover {
-			padding-left: var(--wp--preset--spacing--10);
-			transition: padding-left 0.3s ease;
-		}
 	}
+
+	
 }
 
 ul.is-style-arrow-separator-list,
 ul.destacado {
     li {
-        padding: var(--wp--preset--spacing--10) 0 var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+        padding: var(--wp--preset--spacing--10) 0 var(--wp--preset--spacing--10) var(--wp--preset--spacing--30);
         &::before {
-            top: calc(var(--wp--preset--spacing--10) + 3px);
+            top: calc(var(--wp--preset--spacing--10) + 0px);
         }
     }
 }
 
-ul.is-style-arrow-mini-separator-list,
-ul.destacado {
-
-	li:not(:first-child) {
-		padding: var(--wp--preset--spacing--10) 0 var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
-	}
-
-	li:before{
-		content: url("assets/icons/arrow-list.svg");
-		top: auto;
-		left: 0;
-	}
-}
 
 ul.is-style-check-separator-list,
 ul.is-style-check-list {
@@ -97,7 +94,8 @@ ul.is-style-check-list {
 	}
 
 	li:before{
-		content: url("assets/icons/check.svg");
+		mask-image: url("assets/icons/check.svg");
+		background-color: var(--wp--preset--color--primary);
 		top: auto;
 		left: 0;
 	}

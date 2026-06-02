@@ -24,15 +24,9 @@ get_header();
                 }
 		?>
 
-		<?php 
-	 		$block = get_page_by_title( 'Filter By', OBJECT, 'wp_block' );
-                if ( $block ) {
-                    $block_content = apply_filters( 'the_content', $block->post_content );
-                    echo $block_content;
-                }
-		?>
+		<?php get_template_part( 'template-parts/filter-by' ); ?>
 		
-		<div class="wp-block-query entry-content wp-block-post-content has-global-padding is-layout-constrained">
+		<div class="wp-block-query entry-content wp-block-post-content has-global-padding is-layout-constrained facetwp-template">
 			<div class="wp-block-group is-style-margin-vertical">
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<?php 

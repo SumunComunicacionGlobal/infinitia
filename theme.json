@@ -58,7 +58,13 @@
       "defaultGradients": false,
       "defaultPalette": false,
       "link": false,
-      "gradients": [],
+      "gradients": [
+        {
+          "name": "Blue Light",
+          "slug": "blue-light",
+          "gradient": "linear-gradient(180deg, var(--wp--preset--color--primary-10, #EEF9F7) 18.03%, var(--wp--preset--color--primary-20, #C4E3E2) 57.43%)"
+        }
+      ],
       "palette": [
         {
           "name": "background",
@@ -83,7 +89,7 @@
         {
           "name": "white-blur",
           "slug": "white-blur",
-          "color": "rgba(255, 255, 255, 0.20)"
+          "color": "rgba(255, 255, 255, 0.80)"
         },
         {
           "name": "Neutral-White",
@@ -226,7 +232,7 @@
       "layout": {
 				"gap": "2rem",
 				"gap-small": "16px",
-				"gap-large": "40px",
+				"gap-large": "64px",
 				"gap-x-large": "7rem",
 				"content": "1416px",
 				"content-wide": "1512px",
@@ -571,7 +577,7 @@
 			},
 			"link": {
 				"color": {
-					"text": "var(--wp--custom--color--link)"
+					"text": "var(--wp--preset--color--link)"
 				},
 				"typography": {
           "textDecoration": "none"

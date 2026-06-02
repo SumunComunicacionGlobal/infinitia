@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 // Asigna --n automáticamente según la longitud de texto para el efecto reveal
+document.addEventListener('DOMContentLoaded', setRevealTextLength);
 function setRevealTextLength() {
     const revealTexts = document.querySelectorAll('.scroll--reveal-text');
 
@@ -137,9 +138,6 @@ function setRevealTextLength() {
         element.style.setProperty('--n', String(textLength));
     });
 }
-
-document.addEventListener('DOMContentLoaded', setRevealTextLength);
-
 
 // Toggle para menús de filtros
 document.addEventListener('DOMContentLoaded', function() {
@@ -269,11 +267,140 @@ document.addEventListener('DOMContentLoaded', function() {
     // Toggle para filter-by
     const toggleFilterBy = document.querySelector('.toggle-filter-by');
     const filterByElement = document.getElementById('filter-by');
+    const filterByTabs = document.querySelectorAll('#filter-by .filter-by__tab');
+    const filterByPanels = document.querySelectorAll('#filter-by .filter-by__panel');
     
     if (toggleFilterBy && filterByElement) {
         toggleFilterBy.addEventListener('click', function() {
             filterByElement.classList.toggle('filter-by--is-open');
+            const isOpen = filterByElement.classList.contains('filter-by--is-open');
+            toggleFilterBy.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
     }
+
+    if (filterByTabs.length && filterByPanels.length) {
+        filterByTabs.forEach(function(tab) {
+            tab.classList.remove('is-active');
+            tab.setAttribute('aria-selected', 'false');
+        });
+
+        filterByPanels.forEach(function(panel) {
+            panel.classList.remove('is-active');
+            panel.removeAttribute('hidden');
+            panel.setAttribute('aria-hidden', 'true');
+        });
+
+        const activateFilterByTab = function(tab) {
+            const panelId = tab.getAttribute('aria-controls');
+
+            filterByTabs.forEach(function(item) {
+                const isActive = item === tab;
+                item.classList.toggle('is-active', isActive);
+                item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            filterByPanels.forEach(function(panel) {
+                const isActive = panel.id === panelId;
+                panel.classList.toggle('is-active', isActive);
+                panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+            });
+        };
+
+        filterByTabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                activateFilterByTab(tab);
+            });
+        });
+    }
+});
+
+// Añade clase cuando el anchor sticky está pegado al top.
+document.addEventListener('DOMContentLoaded', function() {
+    const anchorNav = document.getElementById('anchor-nav-soluciones');
+
+    if (!anchorNav) {
+        return;
+    }
+
+    const anchorItems = Array.from(anchorNav.querySelectorAll('a[href^="#"]'))
+        .map((link) => {
+            const targetId = decodeURIComponent(link.getAttribute('href').slice(1));
+
+            if (!targetId) {
+                return null;
+            }
+
+            const section = document.getElementById(targetId);
+
+            if (!section) {
+                return null;
+            }
+
+            return {
+                link,
+                section,
+                button: link.closest('.wp-block-button'),
+            };
+        })
+        .filter(Boolean);
+
+    function setCurrentAnchor(activeLink) {
+        anchorItems.forEach((item) => {
+            const isCurrent = item.link === activeLink;
+            item.link.classList.toggle('current-anchor', isCurrent);
+
+            if (item.button) {
+                item.button.classList.toggle('current-anchor', isCurrent);
+            }
+        });
+    }
+
+    function updateAnchorStickyState() {
+        const rect = anchorNav.getBoundingClientRect();
+        const stickyTop = parseFloat(window.getComputedStyle(anchorNav).top) || 0;
+        const isFixed = rect.top <= stickyTop + 0.5;
+
+        anchorNav.classList.toggle('anchor-nav-soluciones--is-fixed', isFixed);
+    }
+
+    function updateCurrentAnchorByScroll() {
+        if (!anchorItems.length) {
+            return;
+        }
+
+        const stickyTop = parseFloat(window.getComputedStyle(anchorNav).top) || 0;
+        const markerY = window.scrollY + stickyTop + anchorNav.offsetHeight + 16;
+        let activeItem = null;
+        let lastPassedItem = null;
+
+        anchorItems.forEach((item) => {
+            const sectionTop = item.section.offsetTop;
+            const sectionBottom = sectionTop + Math.max(item.section.offsetHeight, 1);
+
+            if (markerY >= sectionTop) {
+                lastPassedItem = item;
+            }
+
+            if (markerY >= sectionTop && markerY < sectionBottom) {
+                activeItem = item;
+            }
+        });
+
+        const currentItem = activeItem || lastPassedItem;
+        setCurrentAnchor(currentItem ? currentItem.link : null);
+    }
+
+    anchorItems.forEach((item) => {
+        item.link.addEventListener('click', function() {
+            setCurrentAnchor(item.link);
+        });
+    });
+
+    updateAnchorStickyState();
+    updateCurrentAnchorByScroll();
+    window.addEventListener('scroll', updateAnchorStickyState, { passive: true });
+    window.addEventListener('scroll', updateCurrentAnchorByScroll, { passive: true });
+    window.addEventListener('resize', updateAnchorStickyState);
+    window.addEventListener('resize', updateCurrentAnchorByScroll);
 });
 

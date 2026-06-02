@@ -3,7 +3,7 @@
 .wp-block-media-text {
 
     .wp-block-media-text__content {
-        padding: 20%;
+        padding: 0 0 0 var(--wp--custom--layout--gap-large);
     }
     
     &.has-media-on-the-right {
@@ -13,17 +13,10 @@
         }
     }
 
-    @media ($below-mobile) {
-        gap: var(--wp--custom--layout--gap-large);
-
-        .wp-block-media-text__content {
-            padding: var(--wp--custom--layout--gap);
-        }
-    }
-
     .wp-block-media-text__media {
-        border-radius: var(--wp--preset--border-radius--1);
+        border-radius: var(--wp--preset--border-radius--1-5);
         overflow: hidden;
+        margin-top: 1rem;
     }
 }
 

@@ -1,0 +1,73 @@
+
+
+.page:has(.smn-post-term-name--ingenieria-forense) {
+    svg#caption-title-icon path {
+        fill: var(--wp--preset--color--accent-10) !important;
+    }
+    .rank-math-question:before {
+        background-color: var(--wp--preset--color--accent-10) !important;
+    }
+    .wp-block-button.current-anchor a:before {
+        background-color: var(--wp--preset--color--accent-10) !important;
+    }
+}
+
+.page:has(.smn-post-term-name--desarrollo-de-producto) {
+    svg#caption-title-icon path {
+        fill: var(--wp--preset--color--accent-30) !important;
+    }
+    .rank-math-question:before {
+        background-color: var(--wp--preset--color--accent-30) !important;
+        color: var(--wp--preset--color--foreground);
+    }
+    .wp-block-button.current-anchor a:before {
+        background-color: var(--wp--preset--color--accent-30) !important;
+    }
+}
+
+.page:has(.smn-post-term-name--innovacion-tecnologica) {
+    svg#caption-title-icon path {
+        fill: var(--wp--preset--color--accent-20) !important;
+    }
+    .rank-math-question:before {
+        background-color: var(--wp--preset--color--accent-20) !important;
+        color: var(--wp--preset--color--foreground);
+    }
+    .wp-block-button.current-anchor a:before {
+        background-color: var(--wp--preset--color--accent-20) !important;
+    }
+}
+
+#anchor-nav-soluciones {
+
+    transition: padding .3s ease-in-out, background-color .2s ease-in-out, max-width .5s ease-in-out;
+
+    .wp-block-button.current-anchor a:before {
+        content: '';
+		display: inline-block;
+		width: 16px;
+		height: 8px;
+		background-color: var(--wp--preset--color--accent);
+		mask-image: url(./assets/icons/caption-title-icon.svg);
+		mask-size: cover;
+		mask-repeat: no-repeat;
+		background-position: center top;
+		overflow: hidden;
+		opacity: 1;
+    }
+
+    .wp-block-button.current-anchor img {
+        display: none;
+    }
+
+    &.anchor-nav-soluciones--is-fixed {
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        background-color: var(--wp--preset--color--primary-10) !important;
+        backdrop-filter: blur(10px);
+        max-width: 100%;
+        z-index: 9;
+    }
+}

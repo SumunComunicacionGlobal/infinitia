@@ -20,4 +20,10 @@
 			height: 1rem;
 		}
 	}
+
+	.wpcf7-form-control.wpcf7-file {
+		@media ($below-tablet) {
+			max-width: 280px;
+		}
+	}
 }

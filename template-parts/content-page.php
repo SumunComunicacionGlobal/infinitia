@@ -9,9 +9,9 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-	<div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>	
+	
+	<section class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
 		<?php
 		the_content();
 
@@ -22,7 +22,7 @@
 			)
 		);
 		?>
-	</div><!-- .entry-content -->
+	</section><!-- .entry-content -->
 
 	<?php if ( get_edit_post_link() ) : ?>
 		<footer class="entry-footer">

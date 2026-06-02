@@ -72,7 +72,7 @@
         }
     }
 
-    &.innovacion-materiales{
+    &.innovacion-tecnologica{
         .picto-ingenieria-forense, .arrow-card {
             --picto-shadow-color: var(--wp--preset--color--accent-20);
         }
@@ -88,7 +88,7 @@
 
 
 .card-proyectos, .card-ensayos {
-    .smn-post-term-name--name-ingenieria-forense, .smn-post-term-name--name-innovacion-en-materiales, .smn-post-term-name--name-desarrollo-de-producto {
+    .smn-post-term-name--ingenieria-forense, .smn-post-term-name--innovacion-tecnologica, .smn-post-term-name--desarrollo-de-producto {
         display: flex;
         align-items: center;
         gap: 0.5rem;
@@ -101,11 +101,11 @@
         }
     }
 
-    .smn-post-term-name--name-desarrollo-de-producto:before {
+    .smn-post-term-name--desarrollo-de-producto:before {
         content: url('./assets/icons/star-desarrollo-producto.svg');
     }
 
-    .smn-post-term-name--name-innovacion-en-materiales:before {
+    .smn-post-term-name--innovacion-tecnologica:before {
         content: url('./assets/icons/star-innovacion-materiales.svg');
     }
 }

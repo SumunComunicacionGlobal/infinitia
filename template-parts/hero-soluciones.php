@@ -16,11 +16,7 @@ $hero_video = '';
 if ( function_exists( 'get_field' ) && $current_post_id ) {
     $hero_title = get_field( 'hero_title_page', $current_post_id );
 
-    // Compatibilidad con variaciones del nombre del campo en ACF.
-    $hero_video = get_field( 'hero_video', $current_post_id );
-    if ( ! $hero_video ) {
-        $hero_video = get_field( 'hero-video', $current_post_id );
-    }
+    $hero_video = get_field( 'hero_video_page', $current_post_id );
 }
 
 if ( $hero_title || $hero_video ) {
@@ -39,19 +35,26 @@ if ( $hero_title || $hero_video ) {
     }
 
     if ( $hero_video ) {
-        $hero_element = $xpath->query( "//*[@id='hero']" );
+        $hero_element = $xpath->query( "//*[@id='hero' or @id='hero-soluciones' or contains(concat(' ', normalize-space(@class), ' '), ' wp-block-cover ')]" );
 
         if ( $hero_element->length > 0 ) {
-            $video_element = $dom->createElement( 'video' );
-            $video_element->setAttribute( 'class', 'wp-block-cover__video-background intrinsic-ignore' );
+            $hero_container = $hero_element->item( 0 );
+            $existing_video = $xpath->query( ".//video[contains(@class, 'wp-block-cover__video-background')]", $hero_container );
+
+            if ( $existing_video->length > 0 ) {
+                $video_element = $existing_video->item( 0 );
+            } else {
+                $video_element = $dom->createElement( 'video' );
+                $video_element->setAttribute( 'class', 'wp-block-cover__video-background intrinsic-ignore' );
+                $hero_container->insertBefore( $video_element, $hero_container->firstChild );
+            }
+
             $video_element->setAttribute( 'autoplay', '' );
             $video_element->setAttribute( 'muted', '' );
             $video_element->setAttribute( 'loop', '' );
             $video_element->setAttribute( 'playsinline', '' );
             $video_element->setAttribute( 'src', esc_url( $hero_video ) );
             $video_element->setAttribute( 'data-object-fit', 'cover' );
-
-            $hero_element->item( 0 )->insertBefore( $video_element, $hero_element->item( 0 )->firstChild );
         }
     }
 

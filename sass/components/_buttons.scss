@@ -10,7 +10,7 @@
 	&:has(img) {
 		display: flex;
 		justify-content: center;
-		align-items: flex-start;
+		align-items: center;
 		gap: 0.5rem;
 	}
 }
@@ -60,15 +60,6 @@
 		opacity: 0;
 	}
 
-	// Rota la flecha 45 grados cuando el enlace apunta a un ancla
-	&[href^="#"]:after {
-		transform: rotate(90deg);
-	}
-
-	&[href^="#"]:hover:after {
-		transform: rotate(90deg) translateY(-0.5rem);
-	}
-
 }
 
 .wp-block-button.is-style-with-arrow,
@@ -76,10 +67,24 @@
 
 	:not(#masthead) & {
 		@media ($below-mobile) {
-				width: 100%;
-				flex-basis: 100%;
-			}
+			width: 100%;
+			flex-basis: 100%;
 		}
+	}
+
+	.wp-block-button__link {
+
+		// Rota la flecha 45 grados cuando el enlace apunta a un ancla
+		&[href^="#"]:after {
+			transform: rotate(90deg);
+		}
+
+		&[href^="#"]:hover:after {
+			transform: rotate(90deg) translateY(-0.5rem);
+		}
+
+	}
+	
 }
 
 .wp-block-button.is-style-outline .wp-block-button__link {

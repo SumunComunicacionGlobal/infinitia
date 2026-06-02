@@ -67,51 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Stagger para marcadores de mapa SVG en bloques del editor.
-  gsap.utils.toArray('.safe-svg-cover').forEach(function (container) {
-    const markers = container.querySelectorAll('[data-marker], .map-marker, .marker-pin, .pin, g[id*="marker" i], path[id*="marker" i], circle[id*="marker" i]');
-
-    if (!markers.length) {
-      return;
-    }
-
-    // Orden visual: de arriba a abajo.
-    const markersSorted = Array.from(markers).sort(function (a, b) {
-      const aRect = a.getBoundingClientRect();
-      const bRect = b.getBoundingClientRect();
-      return aRect.top - bRect.top;
-    });
-
-    gsap.set(markersSorted, {
-      transformOrigin: '50% 100%',
-      transformBox: 'fill-box',
-      opacity: 0,
-      x: 0,
-      y: -14,
-      scale: 0.35,
-    });
-
-    gsap.to(markersSorted, {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      scale: 1,
-      duration: 0.55,
-      ease: 'back.out(2)',
-      stagger: {
-        each: 0.09,
-        from: 'start',
-      },
-      scrollTrigger: {
-        trigger: container,
-        start: 'top 45%',
-        end: 'bottom 55%',
-        scrub: true,
-        invalidateOnRefresh: true,
-      },
-    });
-  });
-
   // Efecto parallax + scale suave para fondo de covers.
   gsap.utils.toArray('.bg-scroll-animated .wp-block-cover').forEach(function (cover) {
     const bgImage = cover.querySelector('.wp-block-cover__image-background');

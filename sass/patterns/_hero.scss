@@ -21,6 +21,15 @@
               padding-top: var(--wp--custom--layout--gap);
           }
         }
+        .wp-block-cover__video-background {
+          //z-index: 1;
+        }
+
+        &:has(.wp-block-cover__video-background) {
+            .wp-block-cover__background {
+            
+            }
+        }   
 
         .home & {
         
@@ -37,8 +46,12 @@
             background-color: var(--wp--preset--color--primary-10);
 
           .wp-block-cover__background {
-            background: linear-gradient(180deg, rgba(0, 45, 53, 0.00) 18.03%, #EEF9F7 83.61%), var(--Primary-90, #EEF9F7);
-            //opacity: 1 !important;
+            background: linear-gradient(180deg, rgba(0, 45, 53, 0.00) -26.95%, var(--Primary-10, #EEF9F7) 91.81%);
+          }
+          .wp-block-cover__image-background {
+            object-fit: none !important;
+            object-position: 80% 50% !important;
+            z-index: 1;
           }
 
         }
@@ -67,10 +80,11 @@
         animation: textClip ease-in-out 1.3s;
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
+        padding-bottom: 0.25rem;
     }
 
     .wp-block-post-excerpt {
-        animation: textClip ease-in-out 1.4s;
+        animation: textClipEx ease-in-out 1.4s;
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
     }
@@ -84,12 +98,22 @@
 }
 
 
-//copiado
-
+//animaciones
 
 @keyframes textClip {
   from {
-    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+    clip-path: polygon(0% 20%, 100% 100%, 100% 100%, 0% 100%);
+    transform: translateY(50%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translateY(0);
+  }
+}
+
+@keyframes textClipEx {
+  from {
+    clip-path: polygon(20% 0%, 100% 100%, 100% 100%, 0% 100%);
     transform: translateY(50%);
   }
   to {
