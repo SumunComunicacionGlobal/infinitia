@@ -34,7 +34,7 @@
 		</ul>
 
 		<button class="filter-by__close" type="button" aria-label="<?php esc_attr_e( 'Cerrar filtros', 'infinitia' ); ?>">
-			<span aria-hidden="true">&times;</span>
+			<span aria-hidden="true"><?php echo file_get_contents(get_template_directory() . '/assets/icons/x.svg'); ?></span>
 		</button>
 	</div>
 

@@ -12,11 +12,12 @@
 }
 
 
-.entry-content p {
+.entry-content p:not(.toc_title) {
 
     a {
-         position: relative;
+        position: relative;
     }
+
     a::before {
         content: '';
         background-color:var(--wp--preset--color--accent);

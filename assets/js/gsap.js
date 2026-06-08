@@ -15,43 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  const textMultipleElements = document.querySelectorAll('.text-color-animate');
-
-  if (textMultipleElements.length > 0) {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: textMultipleElements[0],
-        start: 'top 20%',
-        end: 'bottom 20%',
-        scrub: true,
-      }
-    });
-
-    textMultipleElements.forEach(function (textElement) {
-      let combinedText = '';
-
-      textElement.childNodes.forEach(function (child) {
-        if (child.nodeType === Node.TEXT_NODE || child.nodeType === Node.ELEMENT_NODE) {
-          combinedText += child.textContent.trim();
-        }
-      });
-
-      const splitText = combinedText.split('').map(function (char) {
-        return '<span>' + char + '</span>';
-      }).join('');
-
-      textElement.innerHTML = splitText;
-
-      const chars = textElement.querySelectorAll('span');
-
-      tl.from(chars, {
-        color: '#088988',
-        stagger: 1,
-        duration: 1,
-      }, '+=0.5');
-    });
-  }
-
   const triggerSection = document.querySelector('#kpis-section');
   const elements = document.querySelectorAll('.animated-number');
 

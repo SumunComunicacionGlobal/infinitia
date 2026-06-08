@@ -1,4 +1,6 @@
 node_modules
+vendor
+.git
 .zip
 tmp
 .npm-debug.log

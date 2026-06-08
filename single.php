@@ -22,6 +22,10 @@ get_header();
 
 			get_template_part( 'template-parts/content', get_post_type() ); ?>
 
+			<div class="smn-casosdeexito-taxonomias wp-block-group has-global-padding is-layout-constrained is-style-margin-vertical--medium">
+				<?php smn_hybrid_entry_categories_casosdeexito(); ?>
+			</div>
+
 			<div class="has-global-padding is-layout-constrained">
 				<?php the_post_navigation(
 					array(

@@ -63,6 +63,11 @@
           "name": "Blue Light",
           "slug": "blue-light",
           "gradient": "linear-gradient(180deg, var(--wp--preset--color--primary-10, #EEF9F7) 18.03%, var(--wp--preset--color--primary-20, #C4E3E2) 57.43%)"
+        },
+        {
+          "name": "Blue Dark",
+          "slug": "blue-dark",
+          "gradient": "linear-gradient(180deg, rgba(0, 45, 53, 0.30) 18.03%, #002D35 85.81%);"
         }
       ],
       "palette": [

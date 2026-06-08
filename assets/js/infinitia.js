@@ -266,6 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Toggle para filter-by
     const toggleFilterBy = document.querySelector('.toggle-filter-by');
+    const filterByCloseBtn = document.querySelector('#filter-by .filter-by__close');
     const filterByElement = document.getElementById('filter-by');
     const filterByTabs = document.querySelectorAll('#filter-by .filter-by__tab');
     const filterByPanels = document.querySelectorAll('#filter-by .filter-by__panel');
@@ -279,6 +280,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (filterByTabs.length && filterByPanels.length) {
+        const closeAllFilterByPanels = function() {
+            filterByTabs.forEach(function(tab) {
+                tab.classList.remove('is-active');
+                tab.setAttribute('aria-selected', 'false');
+            });
+
+            filterByPanels.forEach(function(panel) {
+                panel.classList.remove('is-active');
+                panel.setAttribute('aria-hidden', 'true');
+            });
+
+            if (filterByElement) {
+                filterByElement.classList.remove('filter-by--is-open');
+            }
+
+            if (toggleFilterBy) {
+                toggleFilterBy.setAttribute('aria-expanded', 'false');
+            }
+        };
+
         filterByTabs.forEach(function(tab) {
             tab.classList.remove('is-active');
             tab.setAttribute('aria-selected', 'false');
@@ -311,6 +332,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 activateFilterByTab(tab);
             });
         });
+
+        if (filterByCloseBtn) {
+            filterByCloseBtn.addEventListener('click', function() {
+                closeAllFilterByPanels();
+            });
+        }
     }
 });
 

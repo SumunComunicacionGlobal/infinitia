@@ -83,6 +83,44 @@
             --picto-shadow-color: var(--wp--preset--color--accent-30);
         }
     }
+
+    .wp-block-cover__inner-container {
+        height: 100%;
+    }
+
+    .wp-block-smn-parent-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &:before {
+            content: url(./assets/icons/star-ingenieria-forense.svg);
+            width: 1rem;
+            height: 1.2rem;
+        }
+
+        &#parent-title-desarrollo-de-producto:before {
+            content: url(./assets/icons/star-desarrollo-producto.svg);
+        }
+
+        &#parent-title-innovacion-tecnologica:before {
+            content: url(./assets/icons/star-innovacion-materiales.svg);
+        }
+    }
+
+    .innovacion-tecnologica &  {
+        .arrow-card svg path:nth-child(1) {
+            fill: var(--wp--preset--color--accent-20) !important;
+        }
+        
+    }
+
+    .desarrollo-de-producto &  {
+        .arrow-card svg path:nth-child(1) {
+            fill: var(--wp--preset--color--accent-30) !important;
+        }
+        
+    }
     
 }
 

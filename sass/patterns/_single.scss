@@ -1,6 +1,10 @@
 @use '../abstracts/mixins' as *;
 
 
+.blog #toc_container {
+    display: none !important;
+}
+
 .single-casosdeexito .entry-content.is-layout-constrained,
 .single-ensayo .entry-content.is-layout-constrained,
 .single-post .entry-content.is-layout-constrained {

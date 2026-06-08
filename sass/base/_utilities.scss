@@ -58,7 +58,7 @@ a.stretched-link, .stretched-link > a {
 }
 
 .mb-3 {
-    margin-block-end: var(--wp--preset--spacing--30);
+    margin-block-end: var(--wp--preset--spacing--30) !important;
 }
 
 .mb-4 {

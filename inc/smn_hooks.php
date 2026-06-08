@@ -439,4 +439,106 @@ function smn_disable_fallback_excerpt_on_singular($excerpt, $post) {
 }
 add_filter('get_the_excerpt', 'smn_disable_fallback_excerpt_on_singular', 10, 2);
 
+/**
+ * Resuelve un usuario de WP a partir del valor de FacetWP en el facet expertos.
+ *
+ * @param string $facet_value Valor de data-value de FacetWP.
+ * @return WP_User|null
+ */
+function smn_get_expert_user_from_facet_value($facet_value) {
+    $facet_value = (string) $facet_value;
+
+    if ('' === $facet_value) {
+        return null;
+    }
+
+    if (ctype_digit($facet_value)) {
+        $user = get_user_by('id', (int) $facet_value);
+        if ($user instanceof WP_User) {
+            return $user;
+        }
+    }
+
+    $user = get_user_by('slug', sanitize_title($facet_value));
+    if ($user instanceof WP_User) {
+        return $user;
+    }
+
+    $user = get_user_by('login', $facet_value);
+    if ($user instanceof WP_User) {
+        return $user;
+    }
+
+    return null;
+}
+
+/**
+ * Inserta avatar en cada opción del facet "expertos" de FacetWP.
+ *
+ * @param string $output HTML del facet.
+ * @param array  $params Contexto del facet.
+ * @return string
+ */
+function smn_add_avatar_to_expertos_facet($output, $params) {
+    $facet_name = isset($params['facet']['name']) ? (string) $params['facet']['name'] : '';
+
+    if ('expertos' !== $facet_name || false === strpos($output, 'facetwp-checkbox')) {
+        return $output;
+    }
+
+    $pattern = '/(<div class="facetwp-checkbox[^\"]*"[^>]*data-value="([^\"]+)"[^>]*>)(.*?)(<\/div>)/s';
+
+    $output = preg_replace_callback(
+        $pattern,
+        static function ($matches) {
+            $opening_tag = $matches[1];
+            $facet_value = html_entity_decode($matches[2], ENT_QUOTES, 'UTF-8');
+            $inner_html = $matches[3];
+            $closing_tag = $matches[4];
+
+            $user = smn_get_expert_user_from_facet_value($facet_value);
+            if (!($user instanceof WP_User)) {
+                return $matches[0];
+            }
+
+            $avatar_html = get_avatar(
+                $user->ID,
+                32,
+                '',
+                $user->display_name,
+                array(
+                    'class' => 'smn-facet-expert-avatar',
+                    'loading' => 'lazy',
+                    'decoding' => 'async',
+                )
+            );
+
+            if (empty($avatar_html)) {
+                return $matches[0];
+            }
+
+            if (false !== strpos($inner_html, 'smn-facet-expert-avatar-wrap')) {
+                return $matches[0];
+            }
+
+            if (false !== strpos($inner_html, 'facetwp-display-value')) {
+                $inner_html = preg_replace(
+                    '/(<span class="facetwp-display-value">)/',
+                    '<span class="smn-facet-expert-avatar-wrap" aria-hidden="true">' . $avatar_html . '</span>$1',
+                    $inner_html,
+                    1
+                );
+            } else {
+                $inner_html = '<span class="smn-facet-expert-avatar-wrap" aria-hidden="true">' . $avatar_html . '</span>' . $inner_html;
+            }
+
+            return $opening_tag . $inner_html . $closing_tag;
+        },
+        $output
+    );
+
+    return is_string($output) ? $output : '';
+}
+add_filter('facetwp_facet_html', 'smn_add_avatar_to_expertos_facet', 10, 2);
+
 

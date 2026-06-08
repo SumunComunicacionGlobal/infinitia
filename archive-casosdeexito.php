@@ -26,7 +26,7 @@ get_header();
 			<div class="wp-block-group">
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<?php 
-						$block = get_page_by_title( 'Loop Proyectos', OBJECT, 'wp_block' );
+						$block = get_page_by_title( 'Loop Default', OBJECT, 'wp_block' );
 							if ( $block ) {
 								$block_content = apply_filters( 'the_content', $block->post_content );
 								echo $block_content;
