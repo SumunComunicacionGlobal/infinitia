@@ -10,18 +10,23 @@ $clientes_query = new WP_Query(
 		'post_type'           => 'cliente',
 		'post_status'         => 'publish',
 		'posts_per_page'      => -1,
-		'no_found_rows'       => true,
-		'ignore_sticky_posts' => true,
+		'no_found_rows'       => false,
+		'ignore_sticky_posts' => false,
 		'facetwp'             => true,
 	)
 );
 ?>
 
+<div class="smn-clientes-shortcode">
+
+
 <?php if (function_exists('facetwp_display')) : ?>
+	
 	<?php echo facetwp_display( 'facet', 'sectores' ); ?>
+	
 <?php endif; ?>
 
-<div class="smn-clientes-shortcode">
+
 	<?php if ($clientes_query->have_posts()) : ?>
 		<div class="smn-clientes-logos facetwp-template">
 			<?php

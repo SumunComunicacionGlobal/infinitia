@@ -542,3 +542,10 @@ function smn_add_avatar_to_expertos_facet($output, $params) {
 add_filter('facetwp_facet_html', 'smn_add_avatar_to_expertos_facet', 10, 2);
 
 
+add_filter( 'facetwp_shortcode_html', function( $output, $atts ) {
+    if ( 'sectores' == $atts['facet'] ) {
+        // Reemplaza 'tu-clase' con la clase que deseas añadir
+        $output = str_replace( 'facetwp-facet-sectores', 'facetwp-facet-sectores is-style-group-horizontal-scroll-btns', $output );
+    }
+    return $output;
+}, 10, 2 );
