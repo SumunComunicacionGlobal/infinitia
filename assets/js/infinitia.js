@@ -69,6 +69,47 @@ function initHorizontalScrollButtons() {
 document.addEventListener("DOMContentLoaded", initHorizontalScrollButtons);
 document.addEventListener("facetwp-loaded", initHorizontalScrollButtons);
 
+function addSectorFacetIcons() {
+    const iconMap = window.themeData && window.themeData.sectorIcons ? window.themeData.sectorIcons : {};
+
+    document.querySelectorAll(".facetwp-facet-sectores .facetwp-radio[data-value]").forEach((item) => {
+        const value = item.dataset.value || "";
+
+        if ("" === value) {
+            return;
+        }
+
+        if (item.querySelector(".smn-sectores-list__icon")) {
+            return;
+        }
+
+        const iconUrl = iconMap[value];
+
+        if (!iconUrl) {
+            return;
+        }
+
+        const img = document.createElement("img");
+        img.className = "smn-sectores-list__icon";
+        img.src = iconUrl;
+        img.alt = "";
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.setAttribute("aria-hidden", "true");
+
+        const label = item.querySelector(".facetwp-display-value");
+        if (label) {
+            label.insertAdjacentElement("beforebegin", img);
+            return;
+        }
+
+        item.prepend(img);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", addSectorFacetIcons);
+document.addEventListener("facetwp-loaded", addSectorFacetIcons);
+
 // Añade drag para los elementos con scroll horizontal
 document.addEventListener('DOMContentLoaded', (event) => {
     const sliders = document.querySelectorAll('.is-style-group-horizontal-scroll');
