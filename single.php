@@ -26,6 +26,8 @@ get_header();
 				<?php smn_hybrid_entry_categories_casosdeexito(); ?>
 			</div>
 
+			
+
 			<div class="has-global-padding is-layout-constrained">
 				<?php the_post_navigation(
 					array(

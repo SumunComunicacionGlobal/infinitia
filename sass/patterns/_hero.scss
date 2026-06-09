@@ -50,7 +50,7 @@
           }
           .wp-block-cover__image-background {
             object-fit: none !important;
-            object-position: 80% 50% !important;
+            object-position: calc(66% + 300px) 75% !important;
             z-index: 1;
           }
 
