@@ -440,6 +440,145 @@ function smn_disable_fallback_excerpt_on_singular($excerpt, $post) {
 add_filter('get_the_excerpt', 'smn_disable_fallback_excerpt_on_singular', 10, 2);
 
 /**
+ * Obtiene la URL de video ACF para un post/página.
+ *
+ * @param int $post_id ID del post.
+ * @return string
+ */
+function smn_get_cover_video_url_from_acf($post_id) {
+    if (!function_exists('get_field') || !$post_id) {
+        return '';
+    }
+
+    $candidate_fields = array(
+        'hero_video_page',
+        'hero_video',
+        'video_cover',
+    );
+
+    foreach ($candidate_fields as $field_name) {
+        $value = get_field($field_name, $post_id);
+
+        if (empty($value)) {
+            continue;
+        }
+
+        if (is_array($value)) {
+            if (!empty($value['url'])) {
+                return esc_url((string) $value['url']);
+            }
+
+            if (!empty($value['ID'])) {
+                return esc_url((string) wp_get_attachment_url((int) $value['ID']));
+            }
+
+            if (!empty($value['id'])) {
+                return esc_url((string) wp_get_attachment_url((int) $value['id']));
+            }
+        }
+
+        if (is_numeric($value)) {
+            return esc_url((string) wp_get_attachment_url((int) $value));
+        }
+
+        if (is_string($value)) {
+            return esc_url((string) $value);
+        }
+    }
+
+    return '';
+}
+
+/**
+ * Reemplaza la imagen destacada del bloque core/cover por video ACF cuando existe.
+ *
+ * @param string $block_content Contenido renderizado del bloque.
+ * @param array  $block         Datos del bloque.
+ * @return string
+ */
+function smn_replace_cover_featured_image_with_acf_video($block_content, $block) {
+    if (is_admin() || wp_doing_ajax() || (defined('REST_REQUEST') && REST_REQUEST)) {
+        return $block_content;
+    }
+
+    if (empty($block_content)) {
+        return $block_content;
+    }
+
+    $attrs = isset($block['attrs']) && is_array($block['attrs']) ? $block['attrs'] : array();
+    $class_name = isset($attrs['className']) ? (string) $attrs['className'] : '';
+    $uses_featured_image = !empty($attrs['useFeaturedImage']);
+    $is_target_cover = $uses_featured_image || false !== strpos($class_name, 'card-soluciones');
+
+    if (!$is_target_cover) {
+        return $block_content;
+    }
+
+    $post_id = smn_get_post_id_from_block_context($block);
+    if (!$post_id) {
+        return $block_content;
+    }
+
+    $video_url = smn_get_cover_video_url_from_acf($post_id);
+    if ('' === $video_url) {
+        return $block_content;
+    }
+
+    $previous_libxml_state = libxml_use_internal_errors(true);
+    $dom = new DOMDocument();
+
+    if (!$dom->loadHTML(mb_convert_encoding($block_content, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD)) {
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous_libxml_state);
+        return $block_content;
+    }
+
+    $xpath = new DOMXPath($dom);
+
+    $cover_nodes = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' wp-block-cover ')]");
+    if (!$cover_nodes || 0 === $cover_nodes->length) {
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous_libxml_state);
+        return $block_content;
+    }
+
+    $cover = $cover_nodes->item(0);
+
+    // Elimina imagen de fondo del cover cuando exista.
+    $image_nodes = $xpath->query(".//*[contains(concat(' ', normalize-space(@class), ' '), ' wp-block-cover__image-background ')]", $cover);
+    if ($image_nodes && $image_nodes->length > 0) {
+        foreach ($image_nodes as $image_node) {
+            $image_node->parentNode->removeChild($image_node);
+        }
+    }
+
+    $existing_video = $xpath->query(".//video[contains(concat(' ', normalize-space(@class), ' '), ' wp-block-cover__video-background ')]", $cover);
+
+    if ($existing_video && $existing_video->length > 0) {
+        $video_node = $existing_video->item(0);
+    } else {
+        $video_node = $dom->createElement('video');
+        $video_node->setAttribute('class', 'wp-block-cover__video-background intrinsic-ignore');
+        $cover->insertBefore($video_node, $cover->firstChild);
+    }
+
+    $video_node->setAttribute('autoplay', '');
+    $video_node->setAttribute('muted', '');
+    $video_node->setAttribute('loop', '');
+    $video_node->setAttribute('playsinline', '');
+    $video_node->setAttribute('src', $video_url);
+    $video_node->setAttribute('data-object-fit', 'cover');
+
+    $updated_content = $dom->saveHTML();
+
+    libxml_clear_errors();
+    libxml_use_internal_errors($previous_libxml_state);
+
+    return is_string($updated_content) ? $updated_content : $block_content;
+}
+add_filter('render_block_core/cover', 'smn_replace_cover_featured_image_with_acf_video', 10, 2);
+
+/**
  * Resuelve un usuario de WP a partir del valor de FacetWP en el facet expertos.
  *
  * @param string $facet_value Valor de data-value de FacetWP.
