@@ -51,12 +51,38 @@
 		menu.classList.add( 'nav-menu' );
 	}
 
+	function isMegaMenuOpen() {
+		return siteNavigation.classList.contains( 'mega-menu--open' );
+	}
+
+	function isMobileMenuOpen() {
+		return !! ( primaryMenu && primaryMenu.classList.contains( 'primary-menu--open' ) );
+	}
+
+	function updateOverlayState() {
+		const shouldShowOverlay = isMegaMenuOpen() || isMobileMenuOpen();
+
+		overlay.style.opacity = shouldShowOverlay ? '1' : '0';
+		overlay.style.visibility = shouldShowOverlay ? 'visible' : 'hidden';
+		document.body.style.overflow = shouldShowOverlay ? 'hidden' : '';
+	}
+
+	function closeMobileMenu() {
+		if ( ! primaryMenu || ! mobileButton ) {
+			return;
+		}
+
+		primaryMenu.classList.remove( 'primary-menu--open' );
+		mobileButton.setAttribute( 'aria-expanded', 'false' );
+	}
+
 	if ( mobileButton && primaryMenu ) {
 		mobileButton.setAttribute( 'aria-expanded', 'false' );
 
 		mobileButton.addEventListener( 'click', function() {
 			const isOpen = primaryMenu.classList.toggle( 'primary-menu--open' );
 			mobileButton.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
+			updateOverlayState();
 		} );
 	}
 
@@ -83,6 +109,8 @@
 	// Close menu when clicking on overlay
 	overlay.addEventListener( 'click', function() {
 		closeMenu();
+		closeMobileMenu();
+		updateOverlayState();
 	} );
 
 	// Add close button functionality
@@ -99,9 +127,7 @@
 	function openMenu() {
 		siteNavigation.classList.add( 'mega-menu--open' );
 		button.setAttribute( 'aria-expanded', 'true' );
-		overlay.style.opacity = '1';
-		overlay.style.visibility = 'visible';
-		document.body.style.overflow = 'hidden';
+		updateOverlayState();
 	}
 
 	/**
@@ -110,9 +136,7 @@
 	function closeMenu() {
 		siteNavigation.classList.remove( 'mega-menu--open' );
 		button.setAttribute( 'aria-expanded', 'false' );
-		overlay.style.opacity = '0';
-		overlay.style.visibility = 'hidden';
-		document.body.style.overflow = '';
+		updateOverlayState();
 		closeAllDropdowns();
 	}
 
