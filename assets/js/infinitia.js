@@ -69,46 +69,64 @@ function initHorizontalScrollButtons() {
 document.addEventListener("DOMContentLoaded", initHorizontalScrollButtons);
 document.addEventListener("facetwp-loaded", initHorizontalScrollButtons);
 
-function addSectorFacetIcons() {
-    const iconMap = window.themeData && window.themeData.sectorIcons ? window.themeData.sectorIcons : {};
+//botón para mostrar todos los logos de clientes
 
-    document.querySelectorAll(".facetwp-facet-sectores .facetwp-radio[data-value]").forEach((item) => {
-        const value = item.dataset.value || "";
+function initClientesLogosToggle() {
+    document.querySelectorAll(".smn-clientes-shortcode").forEach((wrapper) => {
+        const logos = wrapper.querySelector(".smn-clientes-logos.facetwp-template");
+        const toggleBtn = wrapper.querySelector(".smn-clientes-logos__toggle");
+        const wrapperClassExpanded = "smn-clientes-shortcode--show-all";
+        const wrapperClassHideButton = "smn-clientes-shortcode--hide-toggle";
 
-        if ("" === value) {
+        if (!logos) {
             return;
         }
 
-        if (item.querySelector(".smn-sectores-list__icon")) {
+        if (toggleBtn && toggleBtn.dataset.toggleInit !== "1") {
+            toggleBtn.addEventListener("click", () => {
+                logos.classList.toggle("show-all");
+            });
+
+            toggleBtn.dataset.toggleInit = "1";
+        }
+
+        if (wrapper.dataset.facetRadioInit === "1") {
             return;
         }
 
-        const iconUrl = iconMap[value];
+        wrapper.addEventListener("click", (event) => {
+            const facetRadio = event.target.closest(".facetwp-radio");
 
-        if (!iconUrl) {
-            return;
-        }
+            if (!facetRadio || !wrapper.contains(facetRadio)) {
+                return;
+            }
 
-        const img = document.createElement("img");
-        img.className = "smn-sectores-list__icon";
-        img.src = iconUrl;
-        img.alt = "";
-        img.loading = "lazy";
-        img.decoding = "async";
-        img.setAttribute("aria-hidden", "true");
+            const radioValue = (facetRadio.getAttribute("data-value") || "").trim();
 
-        const label = item.querySelector(".facetwp-display-value");
-        if (label) {
-            label.insertAdjacentElement("beforebegin", img);
-            return;
-        }
+            // Excepcion: el radio "mostrar todos" (sin data-value) restaura estado original.
+            if (!radioValue) {
+                wrapper.classList.remove(wrapperClassExpanded, wrapperClassHideButton);
+                logos.classList.remove("show-all");
+                return;
+            }
 
-        item.prepend(img);
+            const isExpanded = wrapper.classList.contains(wrapperClassExpanded);
+
+            if (isExpanded) {
+                wrapper.classList.remove(wrapperClassExpanded, wrapperClassHideButton);
+                logos.classList.remove("show-all");
+                return;
+            }
+
+            wrapper.classList.add(wrapperClassExpanded, wrapperClassHideButton);
+        });
+
+        wrapper.dataset.facetRadioInit = "1";
     });
 }
 
-document.addEventListener("DOMContentLoaded", addSectorFacetIcons);
-document.addEventListener("facetwp-loaded", addSectorFacetIcons);
+document.addEventListener("DOMContentLoaded", initClientesLogosToggle);
+document.addEventListener("facetwp-loaded", initClientesLogosToggle);
 
 // Añade drag para los elementos con scroll horizontal
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -480,4 +498,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', updateAnchorStickyState);
     window.addEventListener('resize', updateCurrentAnchorByScroll);
 });
+
+
 

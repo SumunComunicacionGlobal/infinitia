@@ -7,57 +7,10 @@
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'infinitia-js', get_template_directory_uri() . '/assets/js/infinitia.js', array(), true );
-
-	$sector_icons = array();
-	$sector_terms = get_terms(
-		array(
-			'taxonomy'   => 'sector',
-			'hide_empty' => false,
-		)
-	);
-
-	if ( ! is_wp_error( $sector_terms ) && ! empty( $sector_terms ) ) {
-		foreach ( $sector_terms as $term ) {
-			$icon_url = '';
-
-			if ( function_exists( 'get_field' ) ) {
-				$acf_icon = get_field( 'icon-sector', $term->taxonomy . '_' . $term->term_id );
-
-				if ( is_array( $acf_icon ) ) {
-					if ( ! empty( $acf_icon['url'] ) ) {
-						$icon_url = (string) $acf_icon['url'];
-					} elseif ( ! empty( $acf_icon['ID'] ) ) {
-						$icon_url = wp_get_attachment_url( (int) $acf_icon['ID'] );
-					} elseif ( ! empty( $acf_icon['id'] ) ) {
-						$icon_url = wp_get_attachment_url( (int) $acf_icon['id'] );
-					}
-				} elseif ( is_numeric( $acf_icon ) ) {
-					$icon_url = wp_get_attachment_url( (int) $acf_icon );
-				} elseif ( is_string( $acf_icon ) ) {
-					$icon_url = $acf_icon;
-				}
-			}
-
-			if ( empty( $icon_url ) ) {
-				$meta_icon = get_term_meta( (int) $term->term_id, 'icon-sector', true );
-
-				if ( is_numeric( $meta_icon ) ) {
-					$icon_url = wp_get_attachment_url( (int) $meta_icon );
-				} elseif ( is_string( $meta_icon ) ) {
-					$icon_url = $meta_icon;
-				}
-			}
-
-			if ( ! empty( $icon_url ) && ! empty( $term->slug ) ) {
-				$sector_icons[ (string) $term->slug ] = esc_url_raw( (string) $icon_url );
-			}
-		}
-	}
 	
 	// Localizar variables para JavaScript
 	wp_localize_script( 'infinitia-js', 'themeData', array(
-		'themeUrl'    => get_template_directory_uri(),
-		'sectorIcons' => $sector_icons,
+		'themeUrl' => get_template_directory_uri()
 	));
 	
 	wp_enqueue_script( 'infinitia-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), _S_VERSION, true );

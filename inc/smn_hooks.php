@@ -549,3 +549,110 @@ add_filter( 'facetwp_shortcode_html', function( $output, $atts ) {
     }
     return $output;
 }, 10, 2 );
+
+/**
+ * Obtiene la URL del icono ACF para un término de la taxonomía sector.
+ *
+ * @param string $term_slug Slug del término.
+ * @return string
+ */
+function smn_get_sector_icon_url_by_slug( $term_slug ) {
+    $term_slug = sanitize_title( (string) $term_slug );
+
+    if ( '' === $term_slug ) {
+        return '';
+    }
+
+    $term = get_term_by( 'slug', $term_slug, 'sector' );
+    if ( ! ( $term instanceof WP_Term ) || is_wp_error( $term ) ) {
+        return '';
+    }
+
+    $icon_url = '';
+
+    if ( function_exists( 'get_field' ) ) {
+        $acf_icon = get_field( 'icon-sector', $term->taxonomy . '_' . $term->term_id );
+
+        if ( is_array( $acf_icon ) ) {
+            if ( ! empty( $acf_icon['url'] ) ) {
+                $icon_url = (string) $acf_icon['url'];
+            } elseif ( ! empty( $acf_icon['ID'] ) ) {
+                $icon_url = (string) wp_get_attachment_url( (int) $acf_icon['ID'] );
+            } elseif ( ! empty( $acf_icon['id'] ) ) {
+                $icon_url = (string) wp_get_attachment_url( (int) $acf_icon['id'] );
+            }
+        } elseif ( is_numeric( $acf_icon ) ) {
+            $icon_url = (string) wp_get_attachment_url( (int) $acf_icon );
+        } elseif ( is_string( $acf_icon ) ) {
+            $icon_url = $acf_icon;
+        }
+    }
+
+    if ( '' === $icon_url ) {
+        $meta_icon = get_term_meta( (int) $term->term_id, 'icon-sector', true );
+
+        if ( is_numeric( $meta_icon ) ) {
+            $icon_url = (string) wp_get_attachment_url( (int) $meta_icon );
+        } elseif ( is_string( $meta_icon ) ) {
+            $icon_url = $meta_icon;
+        }
+    }
+
+    return '' !== $icon_url ? esc_url( $icon_url ) : '';
+}
+
+/**
+ * Inyecta iconos de sector en el facet "sectores" de FacetWP.
+ *
+ * @param string $output HTML del facet.
+ * @param array  $params Contexto del facet.
+ * @return string
+ */
+function smn_add_icons_to_sectores_facet( $output, $params ) {
+    $facet_name = isset( $params['facet']['name'] ) ? (string) $params['facet']['name'] : '';
+
+    if ( 'sectores' !== $facet_name || false === strpos( (string) $output, 'facetwp-radio' ) ) {
+        return $output;
+    }
+
+    $pattern = '/(<div class="facetwp-radio[^\"]*"[^>]*data-value="([^\"]*)"[^>]*>)(.*?)(<\/div>)/s';
+
+    $output = preg_replace_callback(
+        $pattern,
+        static function ( $matches ) {
+            $opening_tag = $matches[1];
+            $facet_value = html_entity_decode( (string) $matches[2], ENT_QUOTES, 'UTF-8' );
+            $inner_html  = $matches[3];
+            $closing_tag = $matches[4];
+
+            // "Todos" (data-value vacío) no lleva icono.
+            if ( '' === $facet_value || false !== strpos( $inner_html, 'smn-sectores-list__icon' ) ) {
+                return $matches[0];
+            }
+
+            $icon_url = smn_get_sector_icon_url_by_slug( $facet_value );
+            if ( '' === $icon_url ) {
+                return $matches[0];
+            }
+
+            if ( false === strpos( $inner_html, 'facetwp-display-value' ) ) {
+                return $matches[0];
+            }
+
+            $icon_html = '<span class="smn-sectores-list__icon-wrap" aria-hidden="true"><img class="smn-sectores-list__icon" src="' . esc_url( $icon_url ) . '" alt="" loading="lazy" decoding="async" /></span>';
+
+            $inner_html = preg_replace(
+                '/(<span class="facetwp-display-value">)/',
+                $icon_html . '$1',
+                $inner_html,
+                1
+            );
+
+            return $opening_tag . $inner_html . $closing_tag;
+        },
+        $output
+    );
+
+    return is_string( $output ) ? $output : '';
+}
+add_filter( 'facetwp_facet_html', 'smn_add_icons_to_sectores_facet', 20, 2 );
