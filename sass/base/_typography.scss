@@ -12,7 +12,7 @@
 }
 
 
-.entry-content p:not(.toc_title) {
+.entry-content-OFF p:not(.toc_title) {
 
     a {
         position: relative;
@@ -35,3 +35,23 @@
         height: 100%;
     }
 }
+
+.entry-content p:not(.toc_title), .entry-content li:not(.toc_title) > {
+
+    a {
+        color: inherit;
+        text-decoration: none;
+        background-image: linear-gradient(var(--wp--preset--color--accent), var(--wp--preset--color--accent));
+        background-repeat: no-repeat;
+        background-position: 0 100%;
+        background-size: 100% 6px;
+        transition: background-size 300ms ease-in-out;
+    }
+
+    a:hover,
+    a:focus {
+        background-size: 100% 100%;
+    }
+}
+
+
