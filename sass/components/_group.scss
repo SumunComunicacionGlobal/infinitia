@@ -56,7 +56,8 @@
 
     & + .scrolling-button-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
+        gap: var(--wp--custom--layout--gap);
         
         .scrolling-button {
 
@@ -94,7 +95,7 @@
         }
 
         .smn-clientes-shortcode & {
-
+            justify-content: space-between;
             
             .scrolling-button {
                 transform: translateY(-82%); 
