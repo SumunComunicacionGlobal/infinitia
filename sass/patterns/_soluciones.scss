@@ -78,6 +78,18 @@
         scrollbar-width: none;
         flex-wrap: nowrap;
 
+        .wp-block-button {
+            flex: 0 0 auto;
+        }
+
+        .wp-block-button__link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: max-content;
+            white-space: nowrap;
+        }
+
         &::-webkit-scrollbar {
             display: none;
         }
