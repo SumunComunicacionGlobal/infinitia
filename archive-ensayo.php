@@ -22,7 +22,7 @@ get_header();
 
         <?php get_template_part( 'template-parts/filter-by' ); ?>
 
-		<div class="wp-block-query entry-content wp-block-post-content has-global-padding is-layout-constrained">
+		<div class="entry-content wp-block-post-content has-global-padding is-layout-constrained">
 			<div class="wp-block-group">
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<?php 

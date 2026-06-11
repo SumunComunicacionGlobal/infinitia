@@ -20,7 +20,7 @@ get_header();
                 }
 		?>
 
-		<div class="wp-block-query entry-content wp-block-post-content has-global-padding is-layout-constrained">
+		<div class="entry-content wp-block-post-content has-global-padding is-layout-constrained">
 			<div class="wp-block-group is-style-margin-vertical">
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<?php 

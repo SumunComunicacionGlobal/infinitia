@@ -43,6 +43,10 @@
 .card-soluciones {
     position: relative;
 
+    @media ($below-tablet) {
+        aspect-ratio: auto !important;
+    }
+
     .stretched-link { 
         transform: none !important;
     }

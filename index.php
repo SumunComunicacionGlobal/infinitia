@@ -19,7 +19,7 @@ get_header();
 		<?php 
 	 		$block = get_page_by_title( 'Hero Blog', OBJECT, 'wp_block' );
                 if ( $block ) {
-                    $block_content = apply_filters( 'the_content', $block->post_content );
+					$block_content = do_blocks( $block->post_content );
                     echo $block_content;
                 }
 		?>
@@ -30,7 +30,7 @@ get_header();
 					<?php 
 						$block = get_page_by_title( 'Loop Blog', OBJECT, 'wp_block' );
 							if ( $block ) {
-								$block_content = apply_filters( 'the_content', $block->post_content );
+								$block_content = do_blocks( $block->post_content );
 								echo $block_content;
 							}
 					?>
