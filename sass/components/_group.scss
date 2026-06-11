@@ -72,9 +72,10 @@
             border: none;
             background-color: var(--wp--preset--color--primary-90);
             color: var(--wp--preset--color--foreground-inverted);
+            opacity: 1 !important;
 
             &:disabled {
-                opacity: 0.5;
+                opacity: 0.5 !important;
                 cursor: not-allowed;
             }
 
