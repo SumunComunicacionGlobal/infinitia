@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.utils.toArray('.site-main .wp-block-cover__inner-container > * > *, .site-main .is-layout-flow > * > *, .wp-block-separator, .single .entry-content > .wp-block-image').forEach(function (element) {
+  gsap.utils.toArray('.site-main .wp-block-cover__inner-container > * > *, .site-main .is-layout-flow > * > *, .wp-block-separator, .single .entry-content > .wp-block-image, .colophon .wp-block-image').forEach(function (element) {
     gsap.from(element, {
       scrollTrigger: {
         trigger: element,
