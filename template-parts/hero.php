@@ -1,6 +1,6 @@
 <?php
 // Bloque Reusable "Hero Page" para el Hero de la página.
-$block = get_page_by_title( 'Hero Page', OBJECT, 'wp_block' );
+$block = smn_get_reusable_block_by_title( 'Hero Page' );
 
 if ( ! $block ) {
     return;

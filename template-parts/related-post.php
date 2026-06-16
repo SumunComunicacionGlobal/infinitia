@@ -24,7 +24,8 @@
         );
     }
     
-    if( $related ): ?>
+    if( $related ):
+        $card_blog_block = smn_get_reusable_block_by_title( 'Card Blog' ); ?>
 
         <section class="wp-block is-layout-constrained has-global-padding">   
             <p class="has-heading-4-font-size uppercase"><?php esc_html_e( 'Entradas relacionadas', 'infinitia' ); ?></p>
@@ -32,12 +33,11 @@
                 <?php
                     if( $related ) foreach( $related as $post ) {
                         setup_postdata($post);
-                        
-						$block = get_page_by_title( 'Card Blog', OBJECT, 'wp_block' );
-							if ( $block ) {
-								$block_content = apply_filters( 'the_content', $block->post_content );
-								echo $block_content;
-							}
+
+                        if ( $card_blog_block ) {
+                            $block_content = apply_filters( 'the_content', $card_blog_block->post_content );
+                            echo $block_content;
+                        }
 					
                         }
                     wp_reset_postdata();

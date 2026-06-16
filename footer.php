@@ -13,13 +13,7 @@
 
 	<footer id="colophon" class="site-footer">
 
-		<?php
-			$block = get_page_by_title( 'Footer Global', OBJECT, 'wp_block' );
-
-			if ( $block ) {
-				echo apply_filters( 'the_content', $block->post_content );
-			}
-		?>
+		<?php smn_render_reusable_block_by_title( 'Footer Global' ); ?>
 
 	</footer><!-- #colophon -->
 </div><!-- #page -->

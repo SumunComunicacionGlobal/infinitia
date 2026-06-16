@@ -16,23 +16,17 @@ get_header();
 ?>
 	<main id="primary" class="site-main">
 
-		<?php 
-	 		$block = get_page_by_title( 'Hero Blog', OBJECT, 'wp_block' );
-                if ( $block ) {
-                    $block_content = apply_filters( 'the_content', $block->post_content );
-                    echo $block_content;
-                }
-		?>
+		<?php smn_render_reusable_block_by_title( 'Hero Blog' ); ?>
 		
 		<div class="wp-block-query entry-content wp-block-post-content has-global-padding is-layout-constrained facetwp-template">
 			<div class="wp-block-group is-style-margin-vertical">
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-					<?php 
-						$block = get_page_by_title( 'Loop Blog', OBJECT, 'wp_block' );
-							if ( $block ) {
-								$block_content = do_blocks( $block->post_content );
-								echo $block_content;
-							}
+					<?php
+						$block = smn_get_reusable_block_by_title( 'Loop Blog' );
+						if ( $block ) {
+							$block_content = do_blocks( $block->post_content );
+							echo $block_content;
+						}
 					?>
 				</article>
 			</div>

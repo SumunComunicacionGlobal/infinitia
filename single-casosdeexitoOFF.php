@@ -32,13 +32,7 @@ get_header();
 			<?php smn_hybrid_entry_categories_casosdeexito(); ?>
 		</div>
 
-		<?php 
-	 		$block = get_page_by_title( 'CTA Form', OBJECT, 'wp_block' );
-                if ( $block ) {
-                    $block_content = apply_filters( 'the_content', $block->post_content );
-                    echo $block_content;
-                }
-		?>
+		<?php smn_render_reusable_block_by_title( 'CTA Form' ); ?>
 
 	</main><!-- #main -->
 
