@@ -490,7 +490,8 @@ function smn_get_cover_video_url_from_acf($post_id) {
 }
 
 /**
- * Reemplaza la imagen destacada del bloque core/cover por video ACF cuando existe.
+ * Reemplaza la imagen destacada del bloque core/cover por video ACF cuando existe,
+ * excepto en heroes donde deben convivir imagen y video.
  *
  * @param string $block_content Contenido renderizado del bloque.
  * @param array  $block         Datos del bloque.
@@ -543,12 +544,17 @@ function smn_replace_cover_featured_image_with_acf_video($block_content, $block)
     }
 
     $cover = $cover_nodes->item(0);
+    $cover_id = $cover instanceof DOMElement ? (string) $cover->getAttribute('id') : '';
+    $hero_ancestor_nodes = $xpath->query("ancestor::*[@id='hero' or @id='hero-soluciones']", $cover);
+    $is_hero_cover = in_array($cover_id, array('hero', 'hero-soluciones'), true) || ($hero_ancestor_nodes && $hero_ancestor_nodes->length > 0);
 
-    // Elimina imagen de fondo del cover cuando exista.
-    $image_nodes = $xpath->query(".//*[contains(concat(' ', normalize-space(@class), ' '), ' wp-block-cover__image-background ')]", $cover);
-    if ($image_nodes && $image_nodes->length > 0) {
-        foreach ($image_nodes as $image_node) {
-            $image_node->parentNode->removeChild($image_node);
+    if (!$is_hero_cover) {
+        // En loops/cards se mantiene el comportamiento actual: reemplazar imagen por video.
+        $image_nodes = $xpath->query(".//*[contains(concat(' ', normalize-space(@class), ' '), ' wp-block-cover__image-background ')]", $cover);
+        if ($image_nodes && $image_nodes->length > 0) {
+            foreach ($image_nodes as $image_node) {
+                $image_node->parentNode->removeChild($image_node);
+            }
         }
     }
 
