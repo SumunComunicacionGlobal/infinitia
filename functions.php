@@ -84,3 +84,17 @@ require get_template_directory() . '/inc/customizer.php';
  * Custom walkers for nav menus.
  */
 require get_template_directory() . '/inc/class-smn-walker-mega-menu-groups.php';
+
+
+
+/**
+ * Filter block data to translate referenced post IDs in core/block blocks.
+ */
+add_filter("render_block_data", function ($block, $source_block) {
+    if ($block["blockName"] === "core/block") {
+        if (function_exists("pll_get_post")) {
+            $block["attrs"]["ref"] = pll_get_post($block["attrs"]["ref"]);
+        }
+    }
+    return $block;
+}, 10, 2);
