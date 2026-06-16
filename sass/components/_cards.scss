@@ -103,11 +103,13 @@
             height: 1.2rem;
         }
 
-        &#parent-title-desarrollo-de-producto:before {
+        &#parent-title-desarrollo-de-producto:before,
+        &#parent-title-product-development:before {
             content: url(./assets/icons/star-desarrollo-producto.svg);
         }
 
-        &#parent-title-innovacion-tecnologica:before {
+        &#parent-title-innovacion-tecnologica:before,
+        &#parent-title-technological-innovation:before {
             content: url(./assets/icons/star-innovacion-materiales.svg);
         }
     }
