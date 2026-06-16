@@ -132,7 +132,12 @@
 
 
 .card-proyectos, .card-ensayos {
-    .smn-post-term-name--ingenieria-forense, .smn-post-term-name--innovacion-tecnologica, .smn-post-term-name--desarrollo-de-producto {
+    .smn-post-term-name--ingenieria-forense,
+    .smn-post-term-name--forensic-engineering,
+    .smn-post-term-name--innovacion-tecnologica,
+    .smn-post-term-name--technological-innovation,
+    .smn-post-term-name--desarrollo-de-producto,
+    .smn-post-term-name--product-development {
         display: flex;
         align-items: center;
         gap: 0.5rem;
@@ -145,11 +150,13 @@
         }
     }
 
-    .smn-post-term-name--desarrollo-de-producto:before {
+    .smn-post-term-name--desarrollo-de-producto:before,
+    .smn-post-term-name--product-development:before {
         content: url('./assets/icons/star-desarrollo-producto.svg');
     }
 
-    .smn-post-term-name--innovacion-tecnologica:before {
+    .smn-post-term-name--innovacion-tecnologica:before,
+    .smn-post-term-name--technological-innovation:before {
         content: url('./assets/icons/star-innovacion-materiales.svg');
     }
 }
