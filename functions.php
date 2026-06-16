@@ -158,3 +158,9 @@ add_filter("render_block_data", function ($block, $source_block) {
     }
     return $block;
 }, 10, 2);
+
+
+add_filter( 'pll_settings_gettext_domains', function( $domains ) {
+    $domains[] = 'infinitia';
+    return $domains;
+} );
