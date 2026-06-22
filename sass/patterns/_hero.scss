@@ -48,7 +48,7 @@
           .wp-block-cover__background {
             background: linear-gradient(180deg, rgba(0, 45, 53, 0.00) -26.95%, var(--Primary-10, #EEF9F7) 91.81%);
           }
-          :has(.wp-block-cover__video-background) {
+          &:has(.wp-block-cover__video-background) {
 
             .wp-block-cover__image-background {
               object-fit: none !important;
