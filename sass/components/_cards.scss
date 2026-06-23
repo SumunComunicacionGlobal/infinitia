@@ -82,7 +82,7 @@
         }
     }
 
-    &.desarrollo-producto {
+    &.desarrollo-de-producto {
         .picto-ingenieria-forense, .arrow-card {
             --picto-shadow-color: var(--wp--preset--color--accent-30);
         }
@@ -118,12 +118,24 @@
         .arrow-card svg path:nth-child(1) {
             fill: var(--wp--preset--color--accent-20) !important;
         }
+
+        .wp-block-smn-parent-title {
+            &:before {
+                content: url(./assets/icons/star-innovacion-materiales.svg);
+            }
+        }
         
     }
 
     .desarrollo-de-producto &  {
         .arrow-card svg path:nth-child(1) {
             fill: var(--wp--preset--color--accent-30) !important;
+        }
+
+        .wp-block-smn-parent-title {
+            &:before {
+                content: url(./assets/icons/star-desarrollo-producto.svg);
+            }
         }
         
     }
