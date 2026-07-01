@@ -289,7 +289,7 @@
                     }
                     .dropdown-toggle {
                         svg path {
-                            fill: var(--wp--preset--color--accent-20);
+                            stroke: var(--wp--preset--color--accent-20);
                         }
                     }
                 }
@@ -301,7 +301,7 @@
 
                     .dropdown-toggle {
                         svg path {
-                            fill: var(--wp--preset--color--accent-30);
+                            stroke: var(--wp--preset--color--accent-30);
                         }
                     }
                 }
