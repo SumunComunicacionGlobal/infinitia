@@ -287,11 +287,22 @@
                     &:after {
                         content: url('./assets/icons/symbol-innovation.svg');
                     }
+                    .dropdown-toggle {
+                        svg path {
+                            fill: var(--wp--preset--color--accent-20);
+                        }
+                    }
                 }
 
                 &:nth-child(3) {
                     &:after {
                         content: url('./assets/icons/symbol-development.svg');
+                    }
+
+                    .dropdown-toggle {
+                        svg path {
+                            fill: var(--wp--preset--color--accent-30);
+                        }
                     }
                 }
 
