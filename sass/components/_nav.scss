@@ -257,7 +257,7 @@
                 grid-template-columns: repeat(4,minmax(0,1fr));
             }
 
-            .menu-item-has-children, > .menu-item {
+            > .menu-item-has-children, > .menu-item {
                 display: flex;
                 opacity: 0;
                 transform: translateY(-10px);
@@ -350,26 +350,26 @@
                 }
             }
 
-            & li.menu-item-has-children {
+            > li.menu-item-has-children {
                 position: relative;
+                transition: padding 0.5s ease-in-out;
                 
-                .dropdown-toggle.btn-icon {
+                > .dropdown-toggle.btn-icon {
                     position: absolute;
                     right: 0.5rem;
                     bottom: 0.5rem;
-                    width: 1.5rem;
                     height: 1.5rem;
                     border: 0;
                     padding: 0;
                     z-index: 2;
 
-                    @media ($above-tablet) {
-                        display: none;
-                    }
-
                     svg {
                         transition: transform 0.5s ease;
                         transform: rotate(0deg);
+                    }
+
+                    @media ($above-tablet) {
+                        display: none;
                     }
                 }
 
@@ -377,7 +377,15 @@
                     transform: rotate(180deg);
                 }
 
-                & > ul.sub-menu {
+                &.dropdown-open > ul.sub-menu {
+                    max-height: 90dvh;
+                }
+
+                &.dropdown-open {
+                    padding: .5rem 1rem 2.5rem 1rem;
+                }
+
+                > ul.sub-menu {
                     max-height: 0;
                     overflow: hidden;
                     transition: max-height 0.5s ease-in-out;
@@ -395,12 +403,46 @@
                         border-top: 1px dashed var(--wp--preset--color--primary-100);
                         font-weight: 400;
                     }
-                }
 
-                &.dropdown-open > ul.sub-menu {
-                    max-height: 90dvh;
-                }
+                    > li.menu-item-has-children {
+                        position: relative;
 
+                        > ul.sub-menu { 
+                            max-height: 0;
+                            overflow: hidden;
+                            transition: max-height 0.5s ease-in-out;
+                        }
+
+                        .dropdown-toggle.btn-icon {
+                            position: absolute;
+                            top: 0.5rem;
+                            right: 0rem;
+                            width: 1.5rem;
+                            height: 1.5rem;
+                            border: 0;
+                            padding: 0;
+                            z-index: 2;
+
+                            svg {
+                                transition: transform 0.5s ease;
+                                transform: rotate(0deg);
+                            }
+
+                        }
+
+                        &.dropdown-open {
+                            
+                            > ul.sub-menu {
+                                max-height: 90dvh;
+                            }
+
+                            .dropdown-toggle.btn-icon svg {
+                                transform: rotate(180deg);
+                            }
+                        }
+
+                    }
+                }
             }
 
             li.analisis-ensayos-menu {
