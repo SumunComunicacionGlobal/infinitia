@@ -373,15 +373,14 @@
                     border: 0;
                     padding: 0;
                     z-index: 2;
+                    display: none;
 
                     svg {
                         transition: transform 0.5s ease;
                         transform: rotate(0deg);
                     }
 
-                    @media ($above-tablet) {
-                        display: none;
-                    }
+                    
                 }
 
                 &.dropdown-open .dropdown-toggle.btn-icon svg {
@@ -397,7 +396,7 @@
                 }
 
                 > ul.sub-menu {
-                    max-height: 0;
+                    //max-height: 0;
                     overflow: hidden;
                     transition: max-height 0.5s ease-in-out;
                     margin: 0;
@@ -406,7 +405,7 @@
                     list-style: none;
 
                     @media ($above-tablet) {
-                        max-height: 100%;
+                        //max-height: 100%;
                     }
 
                     > li a {

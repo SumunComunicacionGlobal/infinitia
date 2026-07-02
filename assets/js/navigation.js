@@ -155,6 +155,44 @@
 	// Handle dropdown submenus
 	const menuItemsWithChildren = menu.querySelectorAll( '.menu-item-has-children' );
 
+	function closeDropdownBranch( menuItem ) {
+		if ( ! menuItem ) {
+			return;
+		}
+
+		const nestedOpenDropdowns = menuItem.querySelectorAll( '.menu-item-has-children.dropdown-open' );
+		for ( const nestedDropdown of nestedOpenDropdowns ) {
+			nestedDropdown.classList.remove( 'dropdown-open' );
+			const nestedButton = nestedDropdown.querySelector( '.dropdown-toggle' );
+			if ( nestedButton ) {
+				nestedButton.setAttribute( 'aria-expanded', 'false' );
+			}
+		}
+
+		menuItem.classList.remove( 'dropdown-open' );
+		const menuItemButton = menuItem.querySelector( '.dropdown-toggle' );
+		if ( menuItemButton ) {
+			menuItemButton.setAttribute( 'aria-expanded', 'false' );
+		}
+	}
+
+	function closeSiblingDropdowns( currentMenuItem ) {
+		const parentList = currentMenuItem.parentElement;
+		if ( ! parentList ) {
+			return;
+		}
+
+		for ( const sibling of parentList.children ) {
+			if ( sibling === currentMenuItem || ! sibling.classList || ! sibling.classList.contains( 'menu-item-has-children' ) ) {
+				continue;
+			}
+
+			if ( sibling.classList.contains( 'dropdown-open' ) || sibling.querySelector( '.menu-item-has-children.dropdown-open' ) ) {
+				closeDropdownBranch( sibling );
+			}
+		}
+	}
+
 	// Add dropdown buttons to menu items with children
 	for ( const menuItem of menuItemsWithChildren ) {
 		const link = menuItem.querySelector( 'a' );
@@ -180,9 +218,9 @@
 				
 				// Toggle current dropdown
 				if ( isExpanded ) {
-					menuItem.classList.remove( 'dropdown-open' );
-					dropdownButton.setAttribute( 'aria-expanded', 'false' );
+					closeDropdownBranch( menuItem );
 				} else {
+					closeSiblingDropdowns( menuItem );
 					menuItem.classList.add( 'dropdown-open' );
 					dropdownButton.setAttribute( 'aria-expanded', 'true' );
 				}
