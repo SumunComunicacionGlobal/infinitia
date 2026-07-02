@@ -176,20 +176,14 @@
 		}
 	}
 
-	function closeSiblingDropdowns( currentMenuItem ) {
-		const parentList = currentMenuItem.parentElement;
-		if ( ! parentList ) {
-			return;
-		}
-
-		for ( const sibling of parentList.children ) {
-			if ( sibling === currentMenuItem || ! sibling.classList || ! sibling.classList.contains( 'menu-item-has-children' ) ) {
+	function closeOtherDropdowns( currentMenuItem ) {
+		const openDropdowns = menu.querySelectorAll( '.menu-item-has-children.dropdown-open' );
+		for ( const openDropdown of openDropdowns ) {
+			if ( openDropdown === currentMenuItem || openDropdown.contains( currentMenuItem ) ) {
 				continue;
 			}
 
-			if ( sibling.classList.contains( 'dropdown-open' ) || sibling.querySelector( '.menu-item-has-children.dropdown-open' ) ) {
-				closeDropdownBranch( sibling );
-			}
+			closeDropdownBranch( openDropdown );
 		}
 	}
 
@@ -220,7 +214,7 @@
 				if ( isExpanded ) {
 					closeDropdownBranch( menuItem );
 				} else {
-					closeSiblingDropdowns( menuItem );
+					closeOtherDropdowns( menuItem );
 					menuItem.classList.add( 'dropdown-open' );
 					dropdownButton.setAttribute( 'aria-expanded', 'true' );
 				}
