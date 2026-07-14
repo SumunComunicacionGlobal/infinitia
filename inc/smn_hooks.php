@@ -212,22 +212,23 @@ function smn_remove_post_terms_links($block_content, $block) {
         $items = array();
         foreach ($terms as $term) {
             $term_name_class = 'smn-post-term-name--' . sanitize_html_class(sanitize_title($term->name));
+            $term_name_popover = sanitize_html_class(sanitize_title($term->name));
             $icon_html = smn_get_sector_icon_html($term);
-            $item_html = '<span class="smn-post-term-name ' . esc_attr($term_name_class) . '">';
+            $item_html = '<button popovertarget="' . esc_attr($term_name_popover) . '" class="smn-post-term-name ' . esc_attr($term_name_class) . '">';
 
             if ('' !== $icon_html) {
-                $item_html .= '<span class="smn-post-term-icon" aria-hidden="true">' . $icon_html . '</span>';
+                $item_html .= '<div class="smn-post-term-icon" aria-hidden="true">' . $icon_html . '</div>';
             }
 
             $item_html .= '<span class="smn-post-term-label">' . esc_html($term->name) . '</span>';
-            $item_html .= '</span>';
+            $item_html .= '</button>';
             $items[] = $item_html;
         }
 
         return smn_replace_post_terms_inner_html($block_content, implode('', $items));
     }
 
-    // Convierte cada enlace de término en un span para mantener estructura/estilo.
+    // Convierte cada enlace de término en un boton para mantener estructura/estilo.
     $block_content = preg_replace_callback(
         '/<a\b([^>]*)>(.*?)<\/a>/is',
         static function ($matches) {

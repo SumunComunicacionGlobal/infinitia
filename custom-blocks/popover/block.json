@@ -1,0 +1,19 @@
+{
+  "apiVersion": 2,
+  "name": "smn/popover",
+  "title": "Popover",
+  "category": "widgets",
+  "icon": "welcome-widgets-menus",
+  "description": "Contenedor popover con ID manual y bloques internos.",
+  "attributes": {
+    "popoverId": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "textdomain": "infinitia",
+  "editorScript": "file:./index.js"
+}

@@ -1,0 +1,108 @@
+@use '../abstracts/mixins' as *;
+
+[popover]:popover-open {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+[popover] {
+    border: 0;
+    background-color: var(--wp--preset--color--primary-30);
+    border-radius: var(--wp--custom--border-radius--05);
+    padding: var(--wp--custom--layout--gap);
+    top: 20%;
+    max-width: 60rem;
+
+    /* Final state of the exit animation */
+    opacity: 0;
+    transform: scaleX(0.5);
+
+    transition:
+        opacity 0.7s,
+        transform 0.7s,
+        overlay 0.7s allow-discrete,
+        display 0.7s allow-discrete;
+    /* Equivalent to
+    transition: all 0.7s allow-discrete; */
+
+    @media ($below-tablet) {
+        top: 1rem;
+        max-width: 90%;
+        max-height: 90dvh;
+    }
+
+}
+
+[popover]::backdrop {
+    background: #000a;
+    backdrop-filter: blur(2px);
+}
+
+
+/* Needs to be after the previous [popover]:popover-open rule
+to take effect, as the specificity is the same */
+@starting-style {
+  [popover]:popover-open {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+}
+
+/* Transition for the popover's backdrop */
+
+[popover]::backdrop {
+  background-color: transparent;
+  transition:
+    display 0.7s allow-discrete,
+    overlay 0.7s allow-discrete,
+    background-color 0.7s;
+  /* Equivalent to
+  transition: all 0.7s allow-discrete; */
+}
+
+[popover]:popover-open::backdrop {
+  background-color: rgb(0 0 0 / 25%);
+}
+
+/* The nesting selector (&) cannot represent pseudo-elements
+so this starting-style rule cannot be nested */
+
+@starting-style {
+  [popover]:popover-open::backdrop {
+    background-color: transparent;
+  }
+}
+
+
+.wp-block-smn-popover {
+
+  .smn-popover-close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 2rem;
+        height: 2rem;
+        border: 0;
+        cursor: pointer;
+        z-index: 2;
+        background-color: var(--wp--preset--color--accent-10);
+        border-radius: var(--wp--custom--border-radius--rounded);
+        padding: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 1;
+        color: var(--wp--preset--color--neutral-white);
+
+        &:hover,
+        &:focus-visible {
+            opacity: 0.9;
+        }
+  }
+
+  .smn-popover-close__icon {
+    width: 1rem;
+    height: 1rem;
+    display: block;
+    }
+}

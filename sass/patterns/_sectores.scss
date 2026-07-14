@@ -183,7 +183,7 @@
 		grid-template-columns: repeat(1, 1fr);
 	}
 	
-	span.smn-post-term-name {
+	button.smn-post-term-name {
 		display: flex;
 		align-items: center;
 		flex-direction: column;
@@ -197,6 +197,15 @@
 		text-align: center;
 		line-height: 1;
 		text-decoration: none;
+		border: 0;
+		transition: background-color .25s ease,transform .25s ease;
+
+		&:hover,
+		&:focus-visible {
+			cursor: pointer;
+			background-color: var(--wp--preset--color--primary-30);
+			transform: translateY(-1px) !important;
+		}
 
 		.smn-post-term-icon {
 			img.smn-post-term-icon-image {

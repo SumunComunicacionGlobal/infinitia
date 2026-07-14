@@ -33,6 +33,12 @@ function smn_register_blocks() {
     register_block_type( get_stylesheet_directory() . '/custom-blocks/animated-number', [
         'render_callback' => 'smn_render_animated_number_block',
     ] );
+
+    // Popover Block
+    require_once get_stylesheet_directory() . '/custom-blocks/popover/popover.php';
+    register_block_type( get_stylesheet_directory() . '/custom-blocks/popover', [
+        'render_callback' => 'smn_render_popover_block',
+    ] );
 }
 
 add_action( 'init', 'smn_register_blocks' );
