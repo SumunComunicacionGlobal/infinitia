@@ -121,3 +121,4 @@ add_filter('pll_rel_hreflang_attributes', function ($hreflangs) {
     $hreflangs['x-default'] = $hreflangs[array_key_first($hreflangs)];
     return $hreflangs;
 }, 10, 1);
+
