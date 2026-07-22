@@ -1,9 +1,9 @@
 @use '../abstracts/mixins' as *;
 
 #filter-by {
-    
+    display: grid;
     gap: 1rem;
-    
+    justify-content: center;
     margin-top: var(--wp--preset--spacing--10);
     margin-bottom: var(--wp--custom--layout--gap);
 
