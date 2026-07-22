@@ -17,9 +17,11 @@ get_header();
 	<main id="primary" class="site-main">
 
 		<?php smn_render_reusable_block_by_title( 'Hero Blog' ); ?>
+
+		<?php get_template_part( 'template-parts/filter-by' ); ?>
 		
 		<div class="wp-block-query entry-content wp-block-post-content has-global-padding is-layout-constrained facetwp-template">
-			<div class="wp-block-group is-style-margin-vertical">
+			<div class="wp-block-group">
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<?php
 						$block = smn_get_reusable_block_by_title( 'Loop Blog' );

@@ -108,7 +108,12 @@ add_action( 'after_setup_theme', 'smn_hybrid_setup' );
 
 
 
-
+//function add_search_form( $items, $args ) {
+//    $items .= '<li class="ht_menu_search_bar">' . get_search_form( false ) . '</li>';
+//    return $items;
+//}
+//
+//add_filter( 'wp_nav_menu_items','add_search_form', 10, 2 );
 
 
 // Polylang Añadir hreflang x-default

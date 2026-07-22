@@ -64,6 +64,11 @@
                 width: 100%;
                 display: inline-block; 
                 font-weight: bold;
+                background-image: none;
+            }
+
+            a {
+                background-image: none;
             }
 
             & > ul {
