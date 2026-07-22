@@ -105,3 +105,14 @@ function smn_hybrid_setup() {
 }
 
 add_action( 'after_setup_theme', 'smn_hybrid_setup' );
+
+
+
+
+
+
+// Polylang Añadir hreflang x-default
+add_filter('pll_rel_hreflang_attributes', function ($hreflangs) {
+    $hreflangs['x-default'] = $hreflangs[array_key_first($hreflangs)];
+    return $hreflangs;
+}, 10, 1);
