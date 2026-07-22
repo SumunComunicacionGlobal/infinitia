@@ -49,6 +49,12 @@
         gap: 0.5rem;
         justify-content: center;
         min-width: 0;
+
+        .post-type-archive-ensayo & {
+            li:first-child {
+                display: none;
+            }
+        }
     }
 
     .filter-by__tab-item {
