@@ -4,7 +4,7 @@
 	gap: 1rem;
 }
 	
-	#primary-menu-search-panel {
+#primary-menu-search-panel {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -14,7 +14,7 @@
 	//margin: 0 auto;
 	z-index: -1;
 	border-radius: 1rem;
-	transition: visibility 0.3s ease-in-out, top 0.3s ease-in-out;
+	transition: visibility 0.3s ease-in-out, top 0.3s ease-in-out, border-radius 0.4s ease-in-out;
 
 	&.search-panel--open {
 		top: 100%;
