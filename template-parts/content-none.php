@@ -11,7 +11,7 @@
 
 <section class="no-results not-found">
 	<header class="page-header">
-		<h1 class="page-title"><?php esc_html_e( 'Nothing Found', 'infinitia' ); ?></h1>
+		<h1 class="page-title"><?php esc_html_e( 'No se ha encontrado nada', 'infinitia' ); ?></h1>
 	</header><!-- .page-header -->
 
 	<div class="page-content">
@@ -34,14 +34,14 @@
 		elseif ( is_search() ) :
 			?>
 
-			<p><?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'infinitia' ); ?></p>
+			<p><?php esc_html_e( 'Lo sentimos, pero no se han encontrado resultados para tus términos de búsqueda. Por favor, prueba con otras palabras clave.', 'infinitia' ); ?></p>
 			<?php
 			get_search_form();
 
 		else :
 			?>
 
-			<p><?php esc_html_e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'infinitia' ); ?></p>
+			<p><?php esc_html_e( 'Parece que no podemos encontrar lo que estás buscando. Quizás la búsqueda pueda ayudar.', 'infinitia' ); ?></p>
 			<?php
 			get_search_form();
 

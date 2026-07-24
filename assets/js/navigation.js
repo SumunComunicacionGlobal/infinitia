@@ -33,6 +33,14 @@
 	const button = document.querySelector( '.menu-toggle' );
 	const mobileButton = document.querySelector( '.menu-toggle-mobile' );
 	const primaryMenu = document.getElementById( 'primary-menu' );
+	const searchToggleButton = document.querySelector( '.menu-search__toggle' );
+	const searchPanel = document.getElementById( 'primary-menu-search-panel' );
+
+	if ( searchToggleButton && searchPanel ) {
+		searchToggleButton.addEventListener( 'click', function() {
+			searchPanel.classList.toggle( 'search-panel--open' );
+		} );
+	}
 
 	// Return early if the button doesn't exist.
 	if ( ! button ) {

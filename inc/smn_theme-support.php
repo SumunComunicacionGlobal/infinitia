@@ -108,12 +108,22 @@ add_action( 'after_setup_theme', 'smn_hybrid_setup' );
 
 
 
-//function add_search_form( $items, $args ) {
-//    $items .= '<li class="ht_menu_search_bar">' . get_search_form( false ) . '</li>';
-//    return $items;
-//}
-//
-//add_filter( 'wp_nav_menu_items','add_search_form', 10, 2 );
+function add_search_form( $items, $args ) {
+	if ( ! isset( $args->theme_location ) || 'primary-menu' !== $args->theme_location ) {
+		return $items;
+	}
+
+	$items .= '<li class="menu-search-bar" role="none">';
+	$items .= '<button class="menu-search__toggle" type="button" aria-label="' . esc_attr__( 'Buscar', 'infinitia' ) . '">';
+	$items .= '<span class="screen-reader-text">' . esc_html__( 'Abrir búsqueda', 'infinitia' ) . '</span>';
+	$items .= file_get_contents(get_template_directory() . '/assets/icons/search.svg');
+	$items .= '</button>';
+	$items .= '</li>';
+
+	return $items;
+}
+
+add_filter( 'wp_nav_menu_items','add_search_form', 10, 2 );
 
 
 // Polylang Añadir hreflang x-default

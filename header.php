@@ -42,7 +42,6 @@
 						array(
 							'theme_location' => 'primary-menu',
 							'menu_id'        => 'primary-menu',
-							
 						)
 					);
 				?>
@@ -63,7 +62,17 @@
 			</nav><!-- #mega-menu -->
 			
 		</div> <!-- .masthead-container -->
-	</header><!-- #masthead -->
+
+		<div id="primary-menu-search-panel" class="has-primary-90-background-color">
+			<div class="menu-search__panel">
+				<?php get_search_form(); ?>
+			</div>
+		</div>
+
+		
 	
+	</header><!-- #masthead -->
+
+			
 	
 	

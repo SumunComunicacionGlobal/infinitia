@@ -13,19 +13,15 @@ get_header();
 
 	<main id="primary" class="site-main">
 
-	 	<?php smn_render_reusable_block_by_title( 'Hero Archive' ); ?>
+	 	<?php smn_render_reusable_block_by_title( 'Hero Search' ); ?>
 
 		<div class="entry-content wp-block-post-content has-global-padding is-layout-constrained">
 			<div class="wp-block-group is-style-margin-vertical">
-
-			
-
 
 				<?php if ( have_posts() ) : ?>
 
 					<?php smn_render_reusable_block_by_title( 'Loop Default' );
 
-					the_posts_navigation();
 
 				else :
 
