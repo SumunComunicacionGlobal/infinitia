@@ -47,7 +47,7 @@
 				?>
 			</div>
 			
-			<nav id="mega-menu" aria-label="<?php esc_attr_e( 'Primary Menu', 'zoilo-rios' ); ?>">
+			<nav id="mega-menu" aria-label="<?php esc_attr_e( 'Primary Menu', 'infinitia' ); ?>">
 				<?php
 					// Mostrar menú de empresas
 					wp_nav_menu(

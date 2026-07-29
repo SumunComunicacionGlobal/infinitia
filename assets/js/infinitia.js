@@ -417,6 +417,74 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
+    const buttonsWrap = anchorNav.querySelector('.wp-block-buttons');
+
+    if (buttonsWrap) {
+        const iconInput = buttonsWrap.querySelector('.smn-anchor-nav-icon-url');
+        const iconUrl = iconInput ? iconInput.value : '';
+        const usedIds = new Set();
+        const sectionCaptions = Array.from(document.querySelectorAll('.section-anchor')).filter((node) => !node.closest('#anchor-nav-soluciones'));
+
+        buttonsWrap.innerHTML = '';
+
+        const slugify = (text) => String(text || '')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+
+        sectionCaptions.forEach((caption) => {
+            const paragraph = caption.querySelector('p');
+
+            if (!paragraph) {
+                return;
+            }
+
+            const label = (paragraph.textContent || '').replace(/\s+/g, ' ').trim();
+
+            if (!label) {
+                return;
+            }
+
+            const id = slugify(label);
+
+            if (!id || id === 'anchor-nav-soluciones' || usedIds.has(id)) {
+                return;
+            }
+
+            usedIds.add(id);
+
+            const button = document.createElement('div');
+            button.className = 'wp-block-button is-style-fill';
+
+            const link = document.createElement('a');
+            link.className = 'wp-block-button__link has-foreground-inverted-background-color has-background wp-element-button';
+            link.href = '#' + id;
+            link.style.paddingTop = '0.5rem';
+            link.style.paddingRight = 'var(--wp--preset--spacing--10)';
+            link.style.paddingBottom = '0.5rem';
+            link.style.paddingLeft = 'var(--wp--preset--spacing--10)';
+
+            if (iconUrl) {
+                const icon = document.createElement('img');
+                icon.decoding = 'async';
+                icon.width = 16;
+                icon.height = 8;
+                icon.style.width = '16px';
+                icon.src = iconUrl;
+                icon.alt = '';
+                icon.setAttribute('aria-hidden', 'true');
+                link.appendChild(icon);
+            }
+
+            link.appendChild(document.createTextNode(label));
+            button.appendChild(link);
+            buttonsWrap.appendChild(button);
+        });
+    }
+
     const anchorItems = Array.from(anchorNav.querySelectorAll('a[href^="#"]'))
         .map((link) => {
             const targetId = decodeURIComponent(link.getAttribute('href').slice(1));

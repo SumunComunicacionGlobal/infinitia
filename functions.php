@@ -49,6 +49,9 @@ require get_template_directory() . '/inc/smn_theme-support.php';
 // Register blocks
 require get_template_directory() . '/inc/smn_register-blocks.php';
 
+// Anchor nav helpers
+require get_template_directory() . '/inc/smn_anchor_nav.php';
+
 // Shortcodes
 require get_template_directory() . '/inc/smn_shortcodes.php';
 
