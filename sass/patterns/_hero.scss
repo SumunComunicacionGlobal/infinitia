@@ -39,6 +39,12 @@
             }
         }
 
+        .author & {
+          .wp-block-cover__background {
+            background: var(--wp--preset--color--primary-20) !important;
+          }
+        }
+
         .page-template-page-soluciones & {
 
           &.wp-block-cover {
