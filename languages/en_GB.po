@@ -4,25 +4,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Infinitia 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/infinitia\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2026-07-30T10:11:04+00:00\n"
+"PO-Revision-Date: 2026-07-30 12:17+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-30T10:11:04+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
 "X-Domain: infinitia\n"
 
 #. Theme Name of the theme
 #: style.css:2
 msgid "Infinitia"
-msgstr ""
+msgstr "Infinitia"
 
 #. Theme URI of the theme
 #. Author URI of the theme
-#: style.css:3
-#: style.css:5
+#: style.css:3 style.css:5
 msgid "https://sumun.net"
 msgstr ""
 
@@ -38,11 +39,15 @@ msgstr ""
 
 #: 404.php:31
 msgid "Oops! No podemos encontrar lo que estás buscando"
-msgstr ""
+msgstr "Oops! We can't find what you're looking for"
 
 #: 404.php:32
-msgid "Parece que no se ha encontrado nada en esta página. ¿Por qué no pruebas a ir a la página de inicio o a hacer una búsqueda?"
+msgid ""
+"Parece que no se ha encontrado nada en esta página. ¿Por qué no pruebas a ir "
+"a la página de inicio o a hacer una búsqueda?"
 msgstr ""
+"It looks like nothing was found on this page. Why not try going to the home "
+"page or doing a search?"
 
 #. translators: 1: title.
 #: comments.php:35
@@ -65,7 +70,7 @@ msgstr ""
 
 #: custom-blocks/popover/popover.php:13
 msgid "Cerrar"
-msgstr ""
+msgstr "Close"
 
 #: header.php:44
 msgid "Skip to content"
@@ -77,7 +82,7 @@ msgstr ""
 
 #: inc/smn_hooks.php:311
 msgid "Talk to a specialist"
-msgstr ""
+msgstr "Talk to a specialist"
 
 #: inc/smn_hooks.php:311
 msgid "Habla con un especialista"
@@ -85,15 +90,15 @@ msgstr ""
 
 #: inc/smn_hooks.php:369
 msgid "Noticias"
-msgstr ""
+msgstr "News"
 
 #: inc/smn_hooks.php:370
 msgid "Análisis y ensayos"
-msgstr ""
+msgstr "Analysis and Testing"
 
 #: inc/smn_hooks.php:371
 msgid "Proyectos"
-msgstr ""
+msgstr "Projects"
 
 #: inc/smn_theme-support.php:57
 msgid "Primary menu"
@@ -105,18 +110,17 @@ msgstr ""
 
 #: inc/smn_theme-support.php:117
 msgid "Buscar"
-msgstr ""
+msgstr "Search"
 
 #: inc/smn_theme-support.php:118
 msgid "Abrir búsqueda"
-msgstr ""
+msgstr "Open Search"
 
 #: inc/smn_widget-area.php:10
 msgid "Sidebar"
 msgstr ""
 
-#: inc/smn_widget-area.php:12
-#: inc/smn_widget-area.php:24
+#: inc/smn_widget-area.php:12 inc/smn_widget-area.php:24
 msgid "Add widgets here."
 msgstr ""
 
@@ -167,20 +171,18 @@ msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
 msgstr ""
 
 #. translators: %s: Name of current post. Only visible to screen readers
-#: inc/template-tags.php:111
-#: template-parts/content-page.php:34
+#: inc/template-tags.php:111 template-parts/content-page.php:34
 #, php-format
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr ""
 
 #: inc/template-tags.php:185
 msgid "Categoría"
-msgstr ""
+msgstr "Category"
 
-#: inc/template-tags.php:186
-#: template-parts/filter-by.php:31
+#: inc/template-tags.php:186 template-parts/filter-by.php:31
 msgid "Materiales"
-msgstr ""
+msgstr "Materials"
 
 #. Template Name of the theme
 #: page-no-hero.php:3
@@ -190,40 +192,48 @@ msgstr ""
 #. Template Name of the theme
 #: page-soluciones.php:3
 msgid "Soluciones"
-msgstr ""
+msgstr "Solutions"
 
 #: single.php:34
 msgid "Anterior:"
-msgstr ""
+msgstr "Prev:"
 
 #: single.php:35
 msgid "Siguiente:"
-msgstr ""
+msgstr "NExt:"
 
 #: template-parts/anchor-nav.php:16
 msgid "Subir arriba"
-msgstr ""
+msgstr "Up"
 
 #: template-parts/content-none.php:14
 msgid "No se ha encontrado nada"
-msgstr ""
+msgstr "Nothing was found"
 
 #. translators: 1: link to WP admin new post page.
 #: template-parts/content-none.php:24
 #, php-format
-msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
 
 #: template-parts/content-none.php:37
-msgid "Lo sentimos, pero no se han encontrado resultados para tus términos de búsqueda. Por favor, prueba con otras palabras clave."
+msgid ""
+"Lo sentimos, pero no se han encontrado resultados para tus términos de "
+"búsqueda. Por favor, prueba con otras palabras clave."
 msgstr ""
+"We're sorry, but no results were found for your search terms. Please try "
+"using different keywords."
 
 #: template-parts/content-none.php:44
-msgid "Parece que no podemos encontrar lo que estás buscando. Quizás la búsqueda pueda ayudar."
+msgid ""
+"Parece que no podemos encontrar lo que estás buscando. Quizás la búsqueda "
+"pueda ayudar."
 msgstr ""
+"It looks like we can't find what you're looking for. Maybe the search "
+"feature can help."
 
-#: template-parts/content-page.php:20
-#: template-parts/content.php:33
+#: template-parts/content-page.php:20 template-parts/content.php:33
 msgid "Pages:"
 msgstr ""
 
@@ -235,48 +245,47 @@ msgstr ""
 
 #: template-parts/filter-by.php:10
 msgid "Categorías"
-msgstr ""
+msgstr "Categories"
 
 #: template-parts/filter-by.php:10
 msgid "Soluciones para"
-msgstr ""
+msgstr "Solutions for"
 
 #: template-parts/filter-by.php:13
 msgid "Filtro de contenido"
-msgstr ""
+msgstr "Content Filter"
 
 #: template-parts/filter-by.php:14
 msgid "Opciones de filtrado"
-msgstr ""
+msgstr "Filter Options"
 
 #: template-parts/filter-by.php:19
 msgid "Filtrar por"
-msgstr ""
+msgstr "Filter by"
 
 #: template-parts/filter-by.php:22
 msgid "Tipos de filtro"
-msgstr ""
+msgstr "Types of Filters"
 
 #: template-parts/filter-by.php:37
 msgid "Expertos/as"
-msgstr ""
+msgstr "Experts"
 
 #: template-parts/filter-by.php:42
 msgid "Cerrar filtros"
-msgstr ""
+msgstr "Close filters"
 
-#: template-parts/logos-clientes.php:79
-#: template-parts/logos-clientes.php:83
+#: template-parts/logos-clientes.php:79 template-parts/logos-clientes.php:83
 msgid "Mostrar todos"
-msgstr ""
+msgstr "Show all"
 
 #: template-parts/logos-clientes.php:80
 msgid "Mostrar menos"
-msgstr ""
+msgstr "Show less"
 
 #: template-parts/related-post.php:31
 msgid "Entradas relacionadas"
-msgstr ""
+msgstr "Related posts"
 
 #: custom-blocks/animated-number/block.json
 msgctxt "block title"
