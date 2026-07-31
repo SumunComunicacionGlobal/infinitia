@@ -548,6 +548,27 @@ function smn_replace_cover_featured_image_with_acf_video($block_content, $block)
     $cover_id = $cover instanceof DOMElement ? (string) $cover->getAttribute('id') : '';
     $hero_ancestor_nodes = $xpath->query("ancestor::*[@id='hero' or @id='hero-soluciones']", $cover);
     $is_hero_cover = in_array($cover_id, array('hero', 'hero-soluciones'), true) || ($hero_ancestor_nodes && $hero_ancestor_nodes->length > 0);
+    $poster_url = '';
+
+    if ($is_hero_cover) {
+        $hero_image_nodes = $xpath->query(".//*[contains(concat(' ', normalize-space(@class), ' '), ' wp-block-cover__image-background ')]", $cover);
+
+        if ($hero_image_nodes && $hero_image_nodes->length > 0) {
+            foreach ($hero_image_nodes as $hero_image_node) {
+                if (!($hero_image_node instanceof DOMElement)) {
+                    continue;
+                }
+
+                if ('' === $poster_url) {
+                    $poster_url = (string) $hero_image_node->getAttribute('src');
+                }
+
+                $hero_image_node->setAttribute('loading', 'eager');
+                $hero_image_node->setAttribute('fetchpriority', 'high');
+                $hero_image_node->setAttribute('decoding', 'async');
+            }
+        }
+    }
 
     if (!$is_hero_cover) {
         // En loops/cards se mantiene el comportamiento actual: reemplazar imagen por video.
@@ -573,8 +594,13 @@ function smn_replace_cover_featured_image_with_acf_video($block_content, $block)
     $video_node->setAttribute('muted', '');
     $video_node->setAttribute('loop', '');
     $video_node->setAttribute('playsinline', '');
+    $video_node->setAttribute('preload', 'metadata');
     $video_node->setAttribute('src', $video_url);
     $video_node->setAttribute('data-object-fit', 'cover');
+
+    if ($is_hero_cover && '' !== $poster_url) {
+        $video_node->setAttribute('poster', esc_url($poster_url));
+    }
 
     $updated_content = $dom->saveHTML();
 

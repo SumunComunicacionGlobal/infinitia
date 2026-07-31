@@ -39,6 +39,25 @@ if ( $hero_title || $hero_video ) {
 
         if ( $hero_element->length > 0 ) {
             $hero_container = $hero_element->item( 0 );
+            $cover_images = $xpath->query( ".//*[contains(concat(' ', normalize-space(@class), ' '), ' wp-block-cover__image-background ')]", $hero_container );
+            $poster_url = '';
+
+            if ( $cover_images && $cover_images->length > 0 ) {
+                foreach ( $cover_images as $cover_image ) {
+                    if ( ! ( $cover_image instanceof DOMElement ) ) {
+                        continue;
+                    }
+
+                    if ( '' === $poster_url ) {
+                        $poster_url = (string) $cover_image->getAttribute( 'src' );
+                    }
+
+                    $cover_image->setAttribute( 'loading', 'eager' );
+                    $cover_image->setAttribute( 'fetchpriority', 'high' );
+                    $cover_image->setAttribute( 'decoding', 'async' );
+                }
+            }
+
             $existing_video = $xpath->query( ".//video[contains(@class, 'wp-block-cover__video-background')]", $hero_container );
 
             if ( $existing_video->length > 0 ) {
@@ -53,8 +72,13 @@ if ( $hero_title || $hero_video ) {
             $video_element->setAttribute( 'muted', '' );
             $video_element->setAttribute( 'loop', '' );
             $video_element->setAttribute( 'playsinline', '' );
+            $video_element->setAttribute( 'preload', 'metadata' );
             $video_element->setAttribute( 'src', esc_url( $hero_video ) );
             $video_element->setAttribute( 'data-object-fit', 'cover' );
+
+            if ( '' !== $poster_url ) {
+                $video_element->setAttribute( 'poster', esc_url( $poster_url ) );
+            }
         }
     }
 
