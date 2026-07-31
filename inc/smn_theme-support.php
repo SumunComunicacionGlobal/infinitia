@@ -113,7 +113,7 @@ function add_search_form( $items, $args ) {
 		return $items;
 	}
 
-	$items .= '<li class="menu-search-bar" role="none">';
+	$items .= '<li class="menu-search-bar">';
 	$items .= '<button class="menu-search__toggle" type="button" aria-label="' . esc_attr__( 'Buscar', 'infinitia' ) . '">';
 	$items .= '<span class="screen-reader-text">' . esc_html__( 'Abrir búsqueda', 'infinitia' ) . '</span>';
 	$items .= file_get_contents(get_template_directory() . '/assets/icons/search.svg');
