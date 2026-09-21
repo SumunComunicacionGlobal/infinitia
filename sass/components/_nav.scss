@@ -411,15 +411,7 @@
 
                 &.dropdown-open > ul.sub-menu {
                     max-height: 90dvh;
-
-                    @media ($above-laptop) {
-                        max-height: 200px;
-                        overflow-y: auto;
-                        scrollbar-color: var(--wp--preset--color--primary-100) var(--wp--preset--color--primary-80);
-                    }
-                    @media (min-width: 1920px) {
-                        max-height: 90dvh;
-                    }
+                    
                 }
 
                 &.dropdown-open {
@@ -477,6 +469,16 @@
                             
                             > ul.sub-menu {
                                 max-height: 90dvh;
+
+                                @media ($above-laptop) {
+                                    max-height: 240px;
+                                    overflow-y: auto;
+                                    scrollbar-color: var(--wp--preset--color--primary-100) var(--wp--preset--color--primary-80);
+                                }
+
+                                @media (min-width: 1920px) {
+                                    max-height: 90dvh;
+                                }
                             }
 
                             .dropdown-toggle.btn-icon svg {

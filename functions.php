@@ -89,6 +89,12 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/class-smn-walker-mega-menu-groups.php';
 
 
+/**
+ * Landing SEM pattern.
+ */
+require get_template_directory() . '/inc/smn_landing-sem.php';
+
+
 
 /**
  * Obtiene un bloque reusable por titulo y lo traduce al idioma actual si Polylang esta activo.
