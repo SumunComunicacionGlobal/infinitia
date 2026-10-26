@@ -278,7 +278,7 @@ function smn_get_contact_page_url_by_language() {
  * @param array  $block         Datos del bloque.
  *
  * @return string
- */
+ 
 function smn_inject_quote_footer_casosdeexito($block_content, $block) {
     if (empty($block_content) || is_admin()) {
         return $block_content;
@@ -325,6 +325,8 @@ function smn_inject_quote_footer_casosdeexito($block_content, $block) {
     return $block_content . $footer_html;
 }
 add_filter('render_block_core/quote', 'smn_inject_quote_footer_casosdeexito', 10, 2);
+
+*/
 
 /**
  * Resuelve el contenido del bloque smn/parent-title en hero sin tocar el bloque custom.
