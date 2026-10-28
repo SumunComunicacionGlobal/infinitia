@@ -12,7 +12,7 @@ get_header();
 
 	<main id="primary" class="site-main">
 		
-		<?php get_template_part( 'template-parts/hero' ); ?>
+		<?php smn_render_reusable_block_by_title( 'Hero Equipo' ); ?>
 
 		<?php
 		while ( have_posts() ) :
