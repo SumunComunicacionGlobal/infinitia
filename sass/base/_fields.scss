@@ -32,7 +32,8 @@ textarea {
 	&::placeholder {
 		color: inherit;
 		opacity: 1; /* Firefox */
-		font-style: italic;
+		font-style: normal;
+		color: var(--wp--preset--color--foreground-medium);
 	}
 	  
 	&::-ms-input-placeholder { /* Edge 12 -18 */

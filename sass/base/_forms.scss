@@ -27,3 +27,186 @@
 		}
 	}
 }
+
+
+/* Formulario de contacto */
+#consultoria-inicial {
+	form .hr-separator {
+		border-color: var(--wp--preset--color--primary-70);
+	}
+
+	form input[type=submit] {
+		color: var(--wp--preset--color--foreground);
+	}
+
+	form .grid-columns-2 p {
+		margin: 0;
+	}
+
+	form .documentacion p {
+		margin: 0;
+	}
+}
+
+
+/* Nota de campos obligatorios alineada a la derecha */
+.section-caption-row {
+  display: flex !important;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.section-caption-row > .section-caption {
+  margin-bottom: 0;
+  flex: 0 1 auto;
+  width: auto;
+}
+.section-caption-row > .required-note {
+  flex: 0 0 auto;
+  font-size: 12px;
+  text-transform: none;
+}
+
+/* Checkboxes exclusivos con aspecto de radio */
+
+
+select#urgencia, select#presupuesto {
+  width: 100%;
+  min-height: 48px;
+}
+
+.confidencial-box {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	border-radius: 0.5rem;
+	padding: 0.5rem 1rem;
+
+	.icon {
+		width: 24px;
+		height: 24px;
+		&:after {
+			content: url(./assets/icons/shield-check.svg);
+			display: block;
+			width: 24px;
+			height: 24px;
+		}
+	}
+}
+
+.final-steps {
+	padding: 1rem;
+	border-radius: 0.5rem;
+}
+
+.final-steps-number {
+	background-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--neutral-white);
+	width: 1.5rem;
+	max-height: 1.5rem;
+	border-radius: 99px;
+	text-align: center;
+	font-size: 14px;
+	line-height: 1.5rem;
+}
+
+.final-steps > div {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding-top: 1rem;
+
+	&:first-child {
+		padding-top: 0;
+	}
+}
+
+.form-upload {
+    position: relative;
+	margin-top: 1rem;
+
+    &__label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        width: 100%;
+        min-height: 220px;
+        padding: 1.5rem;
+
+        background: #fff;
+        border: 1px dashed #009b98;
+        border-radius: 12px;
+
+        color: var(--wp--preset--color--foreground);
+        text-align: center;
+        cursor: pointer;
+
+        transition: border-color .2s, background .2s;
+
+        .icon {
+			width: 24px;
+			height: 24px;
+            &:after {
+				content: url(./assets/icons/upload.svg);
+				display: block;
+				width: 24px;
+				height: 24px;
+			}
+        }
+
+        &:hover {
+            border-color: var(--wp--preset--color--primary);
+            background: var(--wp--preset--color--neutral-10);
+        }
+    }
+
+    &__description {
+        color: var(--wp--preset--color--foreground-medium);
+        font-size: 14px;
+    }
+
+    // Input nativo oculto visualmente
+    &__input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
+    // Accesibilidad teclado
+    &__input:focus-visible + &__label {
+        outline: 2px solid var(--wp--preset--color--primary-30);
+        outline-offset: 4px;
+    }
+
+    &__files {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 0.5rem;
+    }
+
+	&__file {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--wp--preset--color--neutral-white);
+        font-size: 14px;
+
+        &::before {
+            content: "✓";
+            color: var(--wp--preset--color--accent);
+            font-weight: 700;
+        }
+    }
+}

@@ -567,5 +567,32 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', updateCurrentAnchorByScroll);
 });
 
+// Formulario de subida de archivos
+// Formulario de subida de archivos
+document.addEventListener('change', (e) => {
 
+    if (!e.target.matches('.form-upload__input')) return;
 
+    const input = e.target;
+    const upload = input.closest('.form-upload');
+    const filesContainer = upload.querySelector('.form-upload__files');
+
+    filesContainer.replaceChildren();
+
+    Array.from(input.files).forEach(file => {
+
+        const item = document.createElement('div');
+        item.classList.add('form-upload__file');
+
+        const name = document.createElement('span');
+        name.textContent = file.name;
+
+        const size = document.createElement('small');
+        size.textContent = `(${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+
+        item.append(name, size);
+        filesContainer.appendChild(item);
+
+    });
+
+});
