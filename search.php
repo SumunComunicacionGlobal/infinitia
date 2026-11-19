@@ -20,7 +20,7 @@ get_header();
 
 				<?php if ( have_posts() ) : ?>
 
-					<?php smn_render_reusable_block_by_title( 'Loop Default' );
+					<?php smn_render_reusable_block_by_title( 'Loop Search Results' );
 
 
 				else :
