@@ -46,6 +46,16 @@
 	form .documentacion p {
 		margin: 0;
 	}
+
+    .single-landing & {
+
+        .wp-block-group.has-neutral-white-background-color.is-layout-constrained {
+            background-color: var(--wp--preset--color--primary-80) !important;
+            color: var(--wp--preset--color--neutral-white) !important;
+
+        }
+    }
+    
 }
 
 
