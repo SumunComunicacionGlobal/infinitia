@@ -58,8 +58,17 @@ function smn_landing_remove_scripts() {
 		return;
 	}
 
+	$post = get_post();
+	$has_cf7 = has_shortcode( $post->post_content, 'contact-form-7' );
+	
+	// Debug logging
+	if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+		error_log( 'Landing page: ' . $post->post_name . ' | CF7 detected: ' . ( $has_cf7 ? 'YES' : 'NO' ) );
+		error_log( 'Registered scripts: ' . implode( ', ', array_keys( wp_scripts()->registered ) ) );
+	}
+
 	// Check if Contact Form 7 is present
-	if ( has_shortcode( get_post()->post_content, 'contact-form-7' ) ) {
+	if ( $has_cf7 ) {
 		// Keep jQuery and other CF7 dependencies
 		$scripts = array(
 			'infinitia-navigation',
@@ -73,6 +82,9 @@ function smn_landing_remove_scripts() {
 		if ( function_exists( 'wpcf7it_plugin_activation' ) || class_exists( 'WPCF7_Intl_Tel' ) ) {
 			wp_enqueue_script( 'wpcf7-intl-tel-lib' );
 			wp_enqueue_script( 'wpcf7-intl-tel' );
+			error_log( 'Enqueued intl tel scripts' );
+		} else {
+			error_log( 'WARNING: Intl Tel plugin not detected!' );
 		}
 	} else {
 		// Remove all unnecessary scripts
