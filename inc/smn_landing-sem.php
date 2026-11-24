@@ -59,38 +59,47 @@ function smn_landing_remove_scripts() {
 	}
 
 	$post = get_post();
-	$has_cf7 = has_shortcode( $post->post_content, 'contact-form-7' );
+	
+	// Check if Contact Form 7 is present in multiple ways
+	$has_cf7 = false;
+	
+	// Method 1: Check for contact-form-7 shortcode
+	if ( has_shortcode( $post->post_content, 'contact-form-7' ) ) {
+		$has_cf7 = true;
+	}
+	
+	// Method 2: Check if wpcf7 class is present (embedded blocks)
+	if ( strpos( $post->post_content, 'wpcf7' ) !== false ) {
+		$has_cf7 = true;
+	}
+	
+	// Method 3: Check for contact-form-7 as reusable block
+	if ( strpos( $post->post_content, 'contact-form-7' ) !== false ) {
+		$has_cf7 = true;
+	}
 	
 	// Debug logging
 	if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
 		error_log( 'Landing page: ' . $post->post_name . ' | CF7 detected: ' . ( $has_cf7 ? 'YES' : 'NO' ) );
 	}
 
-	// Check if Contact Form 7 is present
-	if ( $has_cf7 ) {
-		// Keep jQuery and other CF7 dependencies
-		$scripts = array(
-			'infinitia-navigation',
-			'infinitia-js',
-			'gsap-js2',
-			'gsap-st',
-			'gsap-js',
-		);
-	} else {
-		// Remove all unnecessary scripts
-		$scripts = array(
-			'infinitia-navigation',
-			'infinitia-js',
-			'gsap-js2',
-			'gsap-st',
-			'gsap-js',
-	        'jquery',
-			'jquery-core',
-			'jquery-migrate',
-		);
+	// Scripts to always remove from landings
+	$scripts_to_remove = array(
+		'infinitia-navigation',
+		'infinitia-js',
+		'gsap-js2',
+		'gsap-st',
+		'gsap-js',
+	);
+	
+	// Only remove jQuery if no CF7 form is present
+	if ( ! $has_cf7 ) {
+		$scripts_to_remove[] = 'jquery';
+		$scripts_to_remove[] = 'jquery-core';
+		$scripts_to_remove[] = 'jquery-migrate';
 	}
 
-	foreach ( $scripts as $handle ) {
+	foreach ( $scripts_to_remove as $handle ) {
 		wp_dequeue_script( $handle );
 		wp_deregister_script( $handle );
 	}
