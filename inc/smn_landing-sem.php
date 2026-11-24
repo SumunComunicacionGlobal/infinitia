@@ -58,31 +58,42 @@ function smn_landing_remove_scripts() {
 		return;
 	}
 
-	$post = get_post();
+	// Use global $post or get_post
+	global $post;
+	if ( ! isset( $post ) || ! $post ) {
+		$post = get_post();
+	}
+	
+	if ( ! $post ) {
+		echo "<!-- SMN Landing: ERROR - No post object available -->\n";
+		return;
+	}
+	
+	$post_content = $post->post_content;
 	
 	// Check if Contact Form 7 is present in multiple ways
 	$has_cf7 = false;
 	
 	// Method 1: Check for contact-form-7 shortcode
-	if ( has_shortcode( $post->post_content, 'contact-form-7' ) ) {
+	if ( has_shortcode( $post_content, 'contact-form-7' ) ) {
 		$has_cf7 = true;
 	}
 	
 	// Method 2: Check if wpcf7 class is present (embedded blocks)
-	if ( strpos( $post->post_content, 'wpcf7' ) !== false ) {
+	if ( strpos( $post_content, 'wpcf7' ) !== false ) {
 		$has_cf7 = true;
 	}
 	
 	// Method 3: Check for contact-form-7 as reusable block
-	if ( strpos( $post->post_content, 'contact-form-7' ) !== false ) {
+	if ( strpos( $post_content, 'contact-form-7' ) !== false ) {
 		$has_cf7 = true;
 	}
 	
 	// Debug logging - both file and HTML comment
-	$debug_msg = 'Landing page: ' . $post->post_name . ' | CF7 detected: ' . ( $has_cf7 ? 'YES' : 'NO' ) . ' | Post content length: ' . strlen( $post->post_content );
+	$debug_msg = 'Landing: ' . $post->post_name . ' | CF7: ' . ( $has_cf7 ? 'YES' : 'NO' ) . ' | Len: ' . strlen( $post_content );
 	
 	if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
-		error_log( $debug_msg );
+		error_log( 'SMN ' . $debug_msg );
 	}
 	
 	// Add HTML comment for debugging in source
@@ -102,9 +113,9 @@ function smn_landing_remove_scripts() {
 		$scripts_to_remove[] = 'jquery';
 		$scripts_to_remove[] = 'jquery-core';
 		$scripts_to_remove[] = 'jquery-migrate';
-		echo "<!-- SMN Landing: jQuery being removed (no CF7 detected) -->\n";
+		echo "<!-- SMN: Removing jQuery (no CF7) -->\n";
 	} else {
-		echo "<!-- SMN Landing: jQuery KEPT (CF7 detected) -->\n";
+		echo "<!-- SMN: KEEPING jQuery (CF7 detected) -->\n";
 	}
 
 	foreach ( $scripts_to_remove as $handle ) {
