@@ -78,10 +78,15 @@ function smn_landing_remove_scripts() {
 		$has_cf7 = true;
 	}
 	
-	// Debug logging
+	// Debug logging - both file and HTML comment
+	$debug_msg = 'Landing page: ' . $post->post_name . ' | CF7 detected: ' . ( $has_cf7 ? 'YES' : 'NO' ) . ' | Post content length: ' . strlen( $post->post_content );
+	
 	if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
-		error_log( 'Landing page: ' . $post->post_name . ' | CF7 detected: ' . ( $has_cf7 ? 'YES' : 'NO' ) );
+		error_log( $debug_msg );
 	}
+	
+	// Add HTML comment for debugging in source
+	echo "<!-- SMN Landing Debug: $debug_msg -->\n";
 
 	// Scripts to always remove from landings
 	$scripts_to_remove = array(
@@ -97,6 +102,9 @@ function smn_landing_remove_scripts() {
 		$scripts_to_remove[] = 'jquery';
 		$scripts_to_remove[] = 'jquery-core';
 		$scripts_to_remove[] = 'jquery-migrate';
+		echo "<!-- SMN Landing: jQuery being removed (no CF7 detected) -->\n";
+	} else {
+		echo "<!-- SMN Landing: jQuery KEPT (CF7 detected) -->\n";
 	}
 
 	foreach ( $scripts_to_remove as $handle ) {
